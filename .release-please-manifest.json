@@ -1,0 +1,8 @@
+{
+  ".": "0.0.1",
+  "common": "0.0.1",
+  "eslint-config": "0.0.1",
+  "prettier-config": "0.0.1",
+  "store": "0.0.1",
+  "typescript-config": "0.0.1"
+}

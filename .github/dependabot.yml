@@ -1,0 +1,56 @@
+version: 2
+updates:
+  - commit-message:
+      prefix: chore
+    directory: /packages/common
+    open-pull-requests-limit: 20
+    package-ecosystem: npm
+    schedule:
+      interval: monthly
+    groups:
+      development-dependencies-common:
+        dependency-type: development
+      production-dependencies-common:
+        dependency-type: production
+        exclude-patterns:
+          - '@emotion*'
+          - '@mui*'
+      mui-common:
+        patterns:
+          - '@emotion*'
+          - '@mui*'
+  - commit-message:
+      prefix: chore
+    directory: /packages/eslint-config
+    open-pull-requests-limit: 10
+    package-ecosystem: npm
+    schedule:
+      interval: monthly
+  - commit-message:
+      prefix: chore
+    directory: /packages/prettier-config
+    open-pull-requests-limit: 10
+    package-ecosystem: npm
+    schedule:
+      interval: monthly
+  - commit-message:
+      prefix: chore
+    directory: /packages/store
+    open-pull-requests-limit: 10
+    package-ecosystem: npm
+    schedule:
+      interval: monthly
+  - commit-message:
+      prefix: chore
+    directory: /packages/typescript-config
+    open-pull-requests-limit: 10
+    package-ecosystem: npm
+    schedule:
+      interval: monthly
+  - commit-message:
+      prefix: chore
+    directory: /packages/utils
+    open-pull-requests-limit: 10
+    package-ecosystem: npm
+    schedule:
+      interval: monthly
