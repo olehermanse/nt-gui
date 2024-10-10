@@ -37,7 +37,6 @@ import hashString from 'md5';
 import Cookies from 'universal-cookie';
 
 import { actions, sliceName } from '.';
-import { HELPTOOLTIPS } from '../../components/helptips/helptooltips';
 import {
   OWN_USER_ID,
   PermissionTypes,
@@ -754,7 +753,7 @@ export const setTooltipReadState = createAsyncThunk(`${sliceName}/setTooltipRead
   return Promise.all(tasks);
 });
 
-export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelptips`, (readState = READ_STATES.read, { dispatch }) => {
-  const updatedTips = Object.keys(HELPTOOLTIPS).reduce((accu, id) => ({ ...accu, [id]: { readState } }), {});
+export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelptips`, ({ readState = READ_STATES.read, tooltips }, { dispatch }) => {
+  const updatedTips = tooltips.reduce((accu, id) => ({ ...accu, [id]: { readState } }), {});
   return Promise.resolve(dispatch(actions.setTooltipsState(updatedTips))).then(() => dispatch(saveUserSettings()));
 });
