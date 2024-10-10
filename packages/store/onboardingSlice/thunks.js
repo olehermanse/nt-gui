@@ -19,7 +19,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'universal-cookie';
 
 import { actions, sliceName } from '.';
-import Tracking from '../../tracking';
 import { onboardingSteps } from '../../utils/onboardingmanager';
 
 const cookies = new Cookies();
@@ -125,8 +124,6 @@ export const setOnboardingCanceled = createAsyncThunk(`${sliceName}/setOnboardin
     // using DEPLOYMENTS_PAST_COMPLETED to ensure we get the intended onboarding state set after
     // _advancing_ the onboarding progress
     .then(() => dispatch(advanceOnboarding(onboardingStepNames.DEPLOYMENTS_PAST_COMPLETED_FAILURE)))
-    // since we can't advance after ONBOARDING_CANCELED, track the step manually here
-    .then(() => Tracking.event({ category: 'onboarding', action: onboardingSteps.ONBOARDING_CANCELED }))
 );
 
 export const advanceOnboarding = createAsyncThunk(`${sliceName}/advanceOnboarding`, (stepId, { dispatch, getState }) => {
@@ -142,6 +139,5 @@ export const advanceOnboarding = createAsyncThunk(`${sliceName}/advanceOnboardin
   const state = { ...getCurrentOnboardingState(getState()), progress: madeProgress };
   state.complete =
     stepIndex + 1 >= Object.keys(onboardingSteps).findIndex(step => step === onboardingStepNames.DEPLOYMENTS_PAST_COMPLETED_FAILURE) ? true : state.complete;
-  Tracking.event({ category: 'onboarding', action: stepId });
   return Promise.all([dispatch(actions.setOnboardingProgress(madeProgress)), dispatch(saveUserSettings({ onboarding: state }))]);
 });
