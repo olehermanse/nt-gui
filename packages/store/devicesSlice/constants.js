@@ -47,6 +47,7 @@ export const DEVICE_STATES = {
   preauth: 'preauthorized',
   rejected: 'rejected'
 };
+export const ALL_DEVICE_STATES = 'any';
 export const DEVICE_CONNECT_STATES = {
   connected: 'connected',
   disconnected: 'disconnected',

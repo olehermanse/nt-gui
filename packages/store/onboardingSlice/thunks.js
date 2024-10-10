@@ -11,7 +11,7 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-import { DEVICE_STATES, onboardingSteps as onboardingStepNames } from '@northern.tech/store/constants';
+import { DEVICE_STATES, onboardingSteps as onboardingStepNames, orderedOnboardingSteps as onboardingSteps } from '@northern.tech/store/constants';
 import { getOnboardingState as getCurrentOnboardingState, getUserCapabilities } from '@northern.tech/store/selectors';
 import { saveUserSettings } from '@northern.tech/store/thunks';
 import { getDemoDeviceAddress } from '@northern.tech/utils/helpers';
@@ -19,7 +19,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'universal-cookie';
 
 import { actions, sliceName } from '.';
-import { onboardingSteps } from '../../utils/onboardingmanager';
 
 const cookies = new Cookies();
 
@@ -32,7 +31,7 @@ export const applyOnboardingFallbacks = progress => {
 };
 
 const determineProgress = (acceptedDevices, pendingDevices, releases, pastDeployments) => {
-  const steps = Object.keys(onboardingSteps);
+  const steps = onboardingSteps;
   let progress = -1;
   progress = pendingDevices.length > 1 ? steps.findIndex(step => step === onboardingStepNames.DEVICES_PENDING_ACCEPTING_ONBOARDING) : progress;
   progress = acceptedDevices.length >= 1 ? steps.findIndex(step => step === onboardingStepNames.DEVICES_ACCEPTED_ONBOARDING) : progress;
@@ -62,7 +61,7 @@ const deductOnboardingState = ({ devicesById, devicesByStatus, onboardingState, 
       (acceptedDevices.length > 1 && pendingDevices.length > 0 && releases.length > 1 && pastDeployments.length > 1) ||
       (acceptedDevices.length >= 1 && releases.length >= 2 && pastDeployments.length > 2) ||
       (acceptedDevices.length >= 1 && pendingDevices.length > 0 && releases.length >= 2 && pastDeployments.length >= 2) ||
-      Object.keys(onboardingSteps).findIndex(step => step === progress) >= Object.keys(onboardingSteps).length - 1 ||
+      onboardingSteps.findIndex(step => step === progress) >= onboardingSteps.length - 1 ||
       onboardingState.disable ||
       ![canDeploy, canManageDevices, canReadDeployments, canReadDevices, canReadReleases, canUploadReleases].every(i => i)
     ),
@@ -127,7 +126,7 @@ export const setOnboardingCanceled = createAsyncThunk(`${sliceName}/setOnboardin
 );
 
 export const advanceOnboarding = createAsyncThunk(`${sliceName}/advanceOnboarding`, (stepId, { dispatch, getState }) => {
-  const steps = Object.keys(onboardingSteps);
+  const steps = onboardingSteps;
   const progress = steps.findIndex(step => step === getState().onboarding.progress);
   const stepIndex = steps.findIndex(step => step === stepId);
   // if there is no progress set yet, the onboarding state deduction hasn't happened
@@ -137,7 +136,6 @@ export const advanceOnboarding = createAsyncThunk(`${sliceName}/advanceOnboardin
   }
   const madeProgress = steps[stepIndex + 1];
   const state = { ...getCurrentOnboardingState(getState()), progress: madeProgress };
-  state.complete =
-    stepIndex + 1 >= Object.keys(onboardingSteps).findIndex(step => step === onboardingStepNames.DEPLOYMENTS_PAST_COMPLETED_FAILURE) ? true : state.complete;
+  state.complete = stepIndex + 1 >= steps.findIndex(step => step === onboardingStepNames.DEPLOYMENTS_PAST_COMPLETED_FAILURE) ? true : state.complete;
   return Promise.all([dispatch(actions.setOnboardingProgress(madeProgress)), dispatch(saveUserSettings({ onboarding: state }))]);
 });

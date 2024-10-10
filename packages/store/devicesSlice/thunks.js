@@ -47,9 +47,8 @@ import pluralize from 'pluralize';
 import { v4 as uuid } from 'uuid';
 
 import { actions, sliceName } from '.';
-import { routes } from '../../components/devices/base-devices';
-import { chartColorPalette } from '../../themes/Mender';
 import {
+  ALL_DEVICE_STATES,
   DEVICE_STATES,
   deviceAuthV2,
   deviceConfig,
@@ -513,7 +512,7 @@ export const setDeviceListState = createAsyncThunk(
     if (!nextState.setOnly && !deepCompare(currentRequestState, nextRequestState)) {
       const { direction: sortDown = SORTING_OPTIONS.desc, key: sortCol, scope: sortScope } = nextState.sort ?? {};
       const sortBy = sortCol ? [{ attribute: sortCol, order: sortDown, scope: sortScope }] : undefined;
-      const applicableSelectedState = nextState.state === routes.allDevices.key ? undefined : nextState.state;
+      const applicableSelectedState = nextState.state === ALL_DEVICE_STATES ? undefined : nextState.state;
       nextState.isLoading = true;
       tasks.push(
         dispatch(getDevicesByStatus({ ...nextState, status: applicableSelectedState, sortOptions: sortBy, fetchAuth }))
@@ -672,6 +671,7 @@ export const getReportingLimits = createAsyncThunk(`${sliceName}/getReportingLim
 export const ensureVersionString = (software, fallback) =>
   software.length && software !== 'artifact_name' ? (software.endsWith('.version') ? software : `${software}.version`) : fallback;
 
+const REPORT_CHART_SIZE_LIMIT = 6;
 const getSingleReportData = (reportConfig, groups) => {
   const { attribute, group, software = '' } = reportConfig;
   const filters = [{ key: 'status', scope: 'identity', operator: DEVICE_FILTERING_OPTIONS.$eq.key, value: 'accepted' }];
@@ -682,7 +682,7 @@ const getSingleReportData = (reportConfig, groups) => {
   }
   const aggregationAttribute = ensureVersionString(software, attribute);
   return GeneralApi.post(`${reportingApiUrl}/devices/aggregate`, {
-    aggregations: [{ attribute: aggregationAttribute, name: '*', scope: 'inventory', size: chartColorPalette.length }],
+    aggregations: [{ attribute: aggregationAttribute, name: '*', scope: 'inventory', size: REPORT_CHART_SIZE_LIMIT }],
     filters: mapFiltersToTerms(filters)
   }).then(({ data }) => ({ data, reportConfig }));
 };
