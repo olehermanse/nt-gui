@@ -35,11 +35,15 @@ module.exports = {
   rules: {
     'consistent-this': ['error', 'self'],
     'import/no-named-as-default': 'off',
-    'prettier/prettier': 'error',
     'no-console': 'off',
     'no-multiple-empty-lines': 'error',
     'no-prototype-builtins': 'off',
+    'no-unused-vars': 'off',
+    'prettier/prettier': 'error',
     quotes: ['error', 'single', { allowTemplateLiterals: true }],
-    'sonarjs/cognitive-complexity': ['error', 17]
+    'sonarjs/cognitive-complexity': ['error', 17],
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-unused-vars': 'error'
   }
 };

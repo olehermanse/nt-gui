@@ -41,12 +41,14 @@ module.exports = {
     'consistent-this': ['error', 'self'],
     'import/no-named-as-default': 'off',
     'no-console': 'off',
-    'no-prototype-builtins': 'off',
     'no-multiple-empty-lines': 'error',
+    'no-prototype-builtins': 'off',
+    'no-unused-vars': 'off',
     'prettier/prettier': 'error',
     quotes: ['error', 'single', { allowTemplateLiterals: true }],
     'react/forbid-dom-props': 'error',
     'react/jsx-no-target-blank': 'error',
+    'react/jsx-pascal-case': 'error',
     'react/no-redundant-should-component-update': 'error',
     'react/no-this-in-sfc': 'error',
     'react/no-typos': 'error',
@@ -56,11 +58,16 @@ module.exports = {
     'react/prefer-stateless-function': 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/require-default-props': 'off',
+    'react/self-closing-comp': 'error',
     'react/sort-prop-types': 'error',
     'react/state-in-constructor': 'error',
     'react/static-property-placement': 'error',
     'react/style-prop-object': 'error',
     'react/void-dom-elements-no-children': 'error',
-    'sonarjs/cognitive-complexity': ['error', 17]
+    'sonarjs/cognitive-complexity': ['error', 17],
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-unused-vars': 'error'
   }
 };
