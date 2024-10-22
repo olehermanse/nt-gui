@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsup store.js",
-    "lint": "eslint .",
+    "build": "tsup store.ts",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
   },
