@@ -1,7 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import { dirname, join } from 'path';
 
-const getAbsolutePath= (value)=>  dirname(require.resolve(join(value, 'package.json')));
+const getAbsolutePath = value => dirname(require.resolve(join(value, 'package.json')));
 
 const config: StorybookConfig = {
   stories: ['../packages/**/*.stories.tsx'],
@@ -13,7 +13,7 @@ const config: StorybookConfig = {
 
   core: {},
 
-  async viteFinal(config, { configType }) {
+  async viteFinal(config) {
     // customize the Vite config here
     return {
       ...config,
