@@ -34,8 +34,9 @@ jobs:
       - name: Setup npm
         uses: actions/setup-node@v4
         with:
-          version: 20
-          run_install: true
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
       - name: Build Storybook
         run: npm run build-storybook
       - name: Setup Pages
