@@ -27,6 +27,9 @@ variables:
   NODE_IMAGE:
     value: 'node:22'
     description: 'Node version to use for building and testing'
+  GITHUB_STATUS_API_URL:
+    value: 'https://api.github.com/repos/NorthernTechHQ/$CI_PROJECT_NAME/statuses/$CI_COMMIT_SHA'
+    description: 'Github endpoint to update CI pipeline progress'
 
 stages:
   - test
@@ -93,7 +96,7 @@ changelog:
       --target-branch=${CI_COMMIT_REF_NAME}
     # git cliff: override the changelog
     - test $GIT_CLIFF == "false" && echo "INFO - Skipping git-cliff" && exit 0
-    - git remote add github-${CI_JOB_ID} https://${GITHUB_USER}:${GITHUB_BOT_TOKEN_REPO_FULL}@github.com/${GITHUB_REPO_URL} || true  # Ignore already existing remote
+    - git remote add github-${CI_JOB_ID} https://${GITHUB_USER}:${GITHUB_BOT_TOKEN_REPO_FULL}@github.com/${GITHUB_REPO_URL} || true # Ignore already existing remote
     - gh repo set-default https://${GITHUB_USER}:${GITHUB_BOT_TOKEN_REPO_FULL}@github.com/${GITHUB_REPO_URL}
     - RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" --json number | jq -r '.[0].number // empty')
     - gh pr checkout --force $RELEASE_PLEASE_PR
