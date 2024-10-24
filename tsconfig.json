@@ -1,0 +1,9 @@
+{
+  "extends": "@northern.tech/typescript-config/react-app.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": "."
+  },
+  "exclude": ["dist", "build", "node_modules"],
+  "include": [".", "./vite.config.ts", ".storybook"]
+}

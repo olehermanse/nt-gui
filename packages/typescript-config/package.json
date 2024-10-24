@@ -1,0 +1,19 @@
+{
+  "name": "@northern.tech/typescript-config",
+  "version": "0.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "files": [
+    "base.json",
+    "react-app.json",
+    "react-library.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup base.json react-app.json react-library.json",
+    "publish": "npm publish",
+    "pre-publish": "npm publish --tag next"
+  }
+}

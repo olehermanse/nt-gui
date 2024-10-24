@@ -1,0 +1,25 @@
+{
+  "name": "@northern.tech/prettier-config",
+  "version": "0.0.0",
+  "private": false,
+  "license": "Apache-2.0",
+  "type": "module",
+  "files": [
+    "base.js",
+    "react.js"
+  ],
+  "dependencies": {
+    "@trivago/prettier-plugin-sort-imports": "4.3.0"
+  },
+  "devDependencies": {
+    "tsup": "8.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup base.js react.js",
+    "publish": "npm publish",
+    "pre-publish": "npm publish --tag next"
+  }
+}
