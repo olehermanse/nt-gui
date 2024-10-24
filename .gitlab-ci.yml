@@ -51,7 +51,6 @@ lint:
   image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   needs: []
   script:
-    - npm i @rollup/rollup-linux-x64-gnu # workaround for https://github.com/npm/cli/issues/4828
     - npm ci
     - npm run lint
 
@@ -60,7 +59,6 @@ build:
   image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   needs: []
   script:
-    - npm i @rollup/rollup-linux-x64-gnu # workaround for https://github.com/npm/cli/issues/4828
     - npm ci
     - npm run release
 
@@ -120,7 +118,6 @@ release:github:
     - if: $CI_COMMIT_BRANCH == $DEFAULT_BRANCH && $RUN_RELEASE == "true"
   script:
     - npm install -g release-please
-    - npm i @rollup/rollup-linux-x64-gnu # workaround for https://github.com/npm/cli/issues/4828
     - npm ci
     - release-please github-release
       --token=${GITHUB_BOT_TOKEN_REPO_FULL}
