@@ -7,6 +7,8 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: monthly
+    reviewers:
+      - 'northerntechhq/frontend-dependabot-reviewers'
     groups:
       development-dependencies-common:
         dependency-type: development
@@ -26,6 +28,13 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: monthly
+    reviewers:
+      - 'northerntechhq/frontend-dependabot-reviewers'
+    groups:
+      development-dependencies-eslint-config:
+        dependency-type: development
+      production-dependencies-eslint-config:
+        dependency-type: production
   - commit-message:
       prefix: chore
     directory: /packages/prettier-config
@@ -33,6 +42,13 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: monthly
+    reviewers:
+      - 'northerntechhq/frontend-dependabot-reviewers'
+    groups:
+      development-dependencies-prettier-config:
+        dependency-type: development
+      production-dependencies-prettier-config:
+        dependency-type: production
   - commit-message:
       prefix: chore
     directory: /packages/store
@@ -40,6 +56,13 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: monthly
+    reviewers:
+      - 'northerntechhq/frontend-dependabot-reviewers'
+    groups:
+      development-dependencies-store:
+        dependency-type: development
+      production-dependencies-store:
+        dependency-type: production
   - commit-message:
       prefix: chore
     directory: /packages/typescript-config
@@ -47,6 +70,13 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: monthly
+    reviewers:
+      - 'northerntechhq/frontend-dependabot-reviewers'
+    groups:
+      development-dependencies-typescript-config:
+        dependency-type: development
+      production-dependencies-typescript-config:
+        dependency-type: production
   - commit-message:
       prefix: chore
     directory: /packages/utils
@@ -54,3 +84,10 @@ updates:
     package-ecosystem: npm
     schedule:
       interval: monthly
+    reviewers:
+      - 'northerntechhq/frontend-dependabot-reviewers'
+    groups:
+      development-dependencies-utils:
+        dependency-type: development
+      production-dependencies-utils:
+        dependency-type: production
