@@ -3,9 +3,6 @@ variables:
   GITHUB_REPO_URL:
     description: "The Github Repo URL for release-please, in the format of 'owner/repo'"
     value: 'NorthernTechHQ/nt-gui'
-  GITHUB_USER:
-    description: 'The Github user for release-please'
-    value: 'mender-test-bot'
   GITHUB_USER_NAME:
     description: 'The Github username for release-please'
     value: 'mender-test-bot'
@@ -65,6 +62,9 @@ build:
 changelog:
   image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   stage: changelog
+  variables:
+    GIT_DEPTH: 0  # Always get the full history
+    GIT_STRATEGY: clone
   rules:
     - if: $RUN_RELEASE == "true"
       when: never
@@ -94,7 +94,7 @@ changelog:
       --target-branch=${CI_COMMIT_REF_NAME}
     # git cliff: override the changelog
     - test $GIT_CLIFF == "false" && echo "INFO - Skipping git-cliff" && exit 0
-    - git remote add github-${CI_JOB_ID} https://${GITHUB_USER}:${GITHUB_BOT_TOKEN_REPO_FULL}@github.com/${GITHUB_REPO_URL} || true # Ignore already existing remote
+    - git remote add github-${CI_JOB_ID} https://${GITHUB_USER_NAME}:${GITHUB_BOT_TOKEN_REPO_FULL}@github.com/${GITHUB_REPO_URL} || true # Ignore already existing remote
     - gh repo set-default https://${GITHUB_USER}:${GITHUB_BOT_TOKEN_REPO_FULL}@github.com/${GITHUB_REPO_URL}
     - RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" --json number | jq -r '.[0].number // empty')
     - gh pr checkout --force $RELEASE_PLEASE_PR
