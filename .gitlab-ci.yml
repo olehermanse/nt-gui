@@ -48,6 +48,7 @@ lint:
   image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   needs: []
   script:
+    - npm i @rollup/rollup-linux-x64-gnu # workaround for https://github.com/npm/cli/issues/4828
     - npm ci
     - npm run lint
 
@@ -56,6 +57,7 @@ build:
   image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   needs: []
   script:
+    - npm i @rollup/rollup-linux-x64-gnu # workaround for https://github.com/npm/cli/issues/4828
     - npm ci
     - npm run release
 
@@ -63,7 +65,7 @@ changelog:
   image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   stage: changelog
   variables:
-    GIT_DEPTH: 0  # Always get the full history
+    GIT_DEPTH: 0 # Always get the full history
     GIT_STRATEGY: clone
   rules:
     - if: $RUN_RELEASE == "true"
