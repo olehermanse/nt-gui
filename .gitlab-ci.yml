@@ -38,6 +38,8 @@ default:
   tags:
     - hetzner-amd-beefy
 
+image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
+
 include:
   - project: 'Northern.tech/Mender/mendertesting'
     file:
@@ -45,7 +47,6 @@ include:
 
 lint:
   stage: test
-  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   needs: []
   script:
     - npm ci
@@ -53,17 +54,19 @@ lint:
 
 build:
   stage: build
-  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   needs: []
   script:
     - npm ci
     - npm run release
+    - npm run build-storybook
+  artifacts:
+    paths:
+      - storybook-static
 
 changelog:
-  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/${NODE_IMAGE}
   stage: changelog
   variables:
-    GIT_DEPTH: 0  # Always get the full history
+    GIT_DEPTH: 0 # Always get the full history
     GIT_STRATEGY: clone
   rules:
     - if: $RUN_RELEASE == "true"
@@ -111,7 +114,6 @@ changelog:
     - git remote remove github-${CI_JOB_ID}
 
 release:github:
-  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/node:20
   stage: release
   rules:
     - if: $CI_COMMIT_BRANCH =~ "/^\d+\.\d+\.x$/" && $RUN_RELEASE == "true"
@@ -125,3 +127,22 @@ release:github:
       --target-branch=${CI_COMMIT_REF_NAME}
     - npm run publish-packages
     - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
+
+pages:
+  stage: release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $DEFAULT_BRANCH
+  needs:
+    - job: build
+      artifacts: true
+  variables:
+    GITHUB_STATUS_API_JSON_F: '{"state": "%s", "context": "ci/storybook", "target_url": "%s", "description": "%s"}'
+  script:
+    - json="$(printf "$GITHUB_STATUS_API_JSON_F" "success" "$CI_PAGES_URL" "Storybook deployed")"
+    - curl -f -H "$GITHUB_AUTH" -d "$json" "$GITHUB_STATUS_API_URL"
+  pages:
+    expire_in: never
+  publish: storybook-static
+  artifacts:
+    paths:
+      - storybook-static
