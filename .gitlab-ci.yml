@@ -104,7 +104,7 @@ changelog:
     - RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" --json number | jq -r '.[0].number // empty')
     - gh pr checkout --force $RELEASE_PLEASE_PR
     - wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped
-    - git cliff --unreleased --bump CHANGELOG.md --github-repo ${GITHUB_REPO_URL}
+    - git cliff --unreleased --bump --output CHANGELOG.md --github-repo ${GITHUB_REPO_URL}
     - git add CHANGELOG.md
     - git commit --amend -s --no-edit
     - git push github-${CI_JOB_ID} --force
