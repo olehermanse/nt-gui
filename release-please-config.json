@@ -12,28 +12,22 @@
       "draft": false,
       "prerelease": false
     },
-    "common": {
-      "path": "packages/common",
+    "packages/common": {
       "release-type": "node"
     },
-    "eslint-config": {
-      "path": "packages/eslint-config",
+    "packages/eslint-config": {
       "release-type": "node"
     },
-    "prettier-config": {
-      "path": "packages/prettier-config",
+    "packages/prettier-config": {
       "release-type": "node"
     },
-    "store": {
-      "path": "packages/store",
+    "packages/store": {
       "release-type": "node"
     },
-    "typescript-config": {
-      "path": "packages/typescript-config",
+    "packages/typescript-config": {
       "release-type": "node"
     },
-    "utils": {
-      "path": "packages/utils",
+    "packages/utils": {
       "release-type": "node"
     }
   },
