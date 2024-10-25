@@ -21,7 +21,7 @@
     "eslint-plugin-sonarjs": "2.0.4"
   },
   "devDependencies": {
-    "tsup": "8.3.0"
+    "tsup": "8.3.4"
   },
   "publishConfig": {
     "access": "public"
