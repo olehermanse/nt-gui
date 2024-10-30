@@ -144,8 +144,8 @@ release:github:
       --token=${GITHUB_BOT_TOKEN_REPO_FULL}
       --repo-url=${GITHUB_REPO_URL}
       --target-branch=${CI_COMMIT_REF_NAME}
-    - npm run publish-packages
     - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
+    - npm run publish-packages
 
 pages:
   stage: release
