@@ -134,3 +134,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# avoid git cliff conf files to be commited
+cliff.toml
+tmp_pr_body.md
