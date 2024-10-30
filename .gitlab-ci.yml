@@ -119,7 +119,7 @@ changelog:
         RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" | grep ${component_name} | awk '{print $1}');
         gh pr checkout --force $RELEASE_PLEASE_PR;
         cd $component;
-        wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped
+        wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped;
         git cliff --unreleased --bump --output ./CHANGELOG.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL};
         git add CHANGELOG.md;
         git commit --amend -s --no-edit;
