@@ -423,3 +423,25 @@ export const parseReleasesQuery = (queryParams, extraProps) => {
   }
   return { searchTerm: name, selectedRelease, tab, tags, type };
 };
+
+const tenantsRoot = '/tenants';
+
+export const generateTenantPath = ({ pageState: { selectedTenant } }) => {
+  if (selectedTenant) {
+    return `${tenantsRoot}/${encodeURIComponent(selectedTenant)}`;
+  } else {
+    return tenantsRoot;
+  }
+};
+export const generateTenantPathById = id => (id ? `${tenantsRoot}/${encodeURIComponent(id)}` : tenantsRoot);
+
+export const parseTenantsQuery = (queryParams, extraProps) => {
+  const name = queryParams.has('name') ? queryParams.get('name') : '';
+  let selectedTenant = extraProps.location.pathname.substring(tenantsRoot.length + 1);
+  if (!selectedTenant && extraProps.pageState.id?.length) {
+    selectedTenant = extraProps.pageState.id[0];
+  }
+  return { name, selectedTenant };
+};
+
+export const formatTenants = () => '';

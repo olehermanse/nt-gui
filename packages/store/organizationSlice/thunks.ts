@@ -181,6 +181,12 @@ export const setAuditlogsState = createAsyncThunk(`${sliceName}/setAuditlogsStat
 */
 export const tenantDataDivergedMessage = 'The system detected there is a change in your plan or purchased add-ons. Please log out and log in again';
 
+export const addTenant = createAsyncThunk(`${sliceName}/createTenant`, (selectionState, { dispatch }) => {
+  return Api.post(`${tenantadmApiUrlv2}/tenants`, selectionState)
+    .then(() => Promise.all([dispatch(getTenants()), dispatch(setSnackbar('Tenant was created successfully.'))]))
+    .catch(err => commonErrorHandler(err, 'There was an error creating tenant', dispatch, commonErrorFallback));
+});
+
 const tenantListRetrieval = async (config): Promise<[Tenant[], number]> => {
   const { page, perPage } = config;
   const params = new URLSearchParams({ page, per_page: perPage }).toString();
@@ -205,6 +211,28 @@ export const setTenantsListState = createAsyncThunk(`${sliceName}/setTenantsList
     return dispatch(actions.setTenantListState({ ...nextState, tenants, total: pageCount }));
   }
   return dispatch(actions.setTenantListState({ ...nextState }));
+});
+
+interface editTenantBody {
+  name: string;
+  newLimit: number;
+  id: string;
+}
+export const editTenantDeviceLimit = createAsyncThunk(`${sliceName}/editDeviceLimit`, ({ newLimit, id, name }: editTenantBody, { dispatch }) => {
+  return Api.put(`${tenantadmApiUrlv2}/tenants/${id}/child`, { device_limit: newLimit, name })
+    .catch(err => commonErrorHandler(err, `Device Limit cannot be changed`, dispatch))
+    .then(() => Promise.resolve(dispatch(setSnackbar({ message: 'Device Limit was changed successfully', autoHideDuration: TIMEOUTS.fiveSeconds }))))
+    .then(() => dispatch(getTenants()));
+});
+export const removeTenant = createAsyncThunk(`${sliceName}/editDeviceLimit`, ({ id }: { id: string }, { dispatch }) => {
+  return Api.post(`${tenantadmApiUrlv2}/tenants/${id}/remove/start`)
+    .catch(err => commonErrorHandler(err, `There was an error removing the tenant`, dispatch))
+    .then(() => {
+      const tasks = [Promise.resolve(dispatch(setSnackbar({ message: 'Tenant was removed successfully', autoHideDuration: TIMEOUTS.fiveSeconds })))];
+      tasks.push(dispatch(getTenants()));
+      tasks.push(setTenantsListState({ selectedTenant: null }));
+      return Promise.all(tasks);
+    });
 });
 
 export const getUserOrganization = createAsyncThunk(`${sliceName}/getUserOrganization`, (_, { dispatch, getState }) => {
