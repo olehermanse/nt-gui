@@ -21,13 +21,16 @@ import {
   formatDeviceSearch,
   formatPageState,
   formatReleases,
+  formatTenants,
   generateDeploymentsPath,
   generateDevicePath,
   generateReleasesPath,
+  generateTenantPath,
   parseAuditlogsQuery,
   parseDeploymentsQuery,
   parseDeviceQuery,
-  parseReleasesQuery
+  parseReleasesQuery,
+  parseTenantsQuery
 } from './locationutils';
 
 const processors = {
@@ -55,6 +58,11 @@ const processors = {
     format: formatReleases,
     locate: generateReleasesPath,
     parse: parseReleasesQuery
+  },
+  tenants: {
+    format: formatTenants,
+    locate: generateTenantPath,
+    parse: parseTenantsQuery
   }
 };
 
