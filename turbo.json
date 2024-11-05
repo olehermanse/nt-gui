@@ -31,6 +31,9 @@
         "^pre-publish"
       ]
     },
+    "test": {
+      "cache": false
+    },
     "publish": {
       "dependsOn": [
         "^build",
