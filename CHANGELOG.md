@@ -1,5 +1,8 @@
-## 0.0.1
+---
+## @northern.tech/eslint-config-0.1.1 - 2024-11-05
 
-- First release of nt-gui packages
+
+### Bug Fixes
+
 
 ---
