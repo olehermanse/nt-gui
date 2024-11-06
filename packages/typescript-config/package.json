@@ -1,16 +1,20 @@
 {
   "name": "@northern.tech/typescript-config",
   "version": "0.1.0",
-  "private": true,
   "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
+  },
   "files": [
     "base.json",
     "react-app.json",
     "react-library.json"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "build": "tsup base.json react-app.json react-library.json",
     "publish": "npm publish",

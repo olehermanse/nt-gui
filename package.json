@@ -1,5 +1,11 @@
 {
-  "private": true,
+  "name": "nt-gui-packages",
+  "license": "Apache-2.0",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
+  },
   "scripts": {
     "build": "vite build",
     "dev": "vite dev",
@@ -38,7 +44,6 @@
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "*"
   },
-  "name": "nt-gui-packages",
   "packageManager": "npm@10.8.3",
   "workspaces": [
     "apps/*",
