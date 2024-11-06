@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.1](https://github.com/NorthernTechHQ/nt-gui/compare/@northern.tech/utils-0.1.0...@northern.tech/utils-0.1.1) (2024-11-06)
+
+
+### Bug Fixes
+
+* allowed more flexible dependency versions ([ff85836](https://github.com/NorthernTechHQ/nt-gui/commit/ff85836679b61109c34d6e86f711f749e8d0f504))
+* **utils:** marked utils as public package to allow npmjs publishing ([a91c744](https://github.com/NorthernTechHQ/nt-gui/commit/a91c744e0267fcefa7a8ba4e80185e4c1143c2f9))
+* **utils:** marked utils as public package to allow npmjs publishing ([ba94fa5](https://github.com/NorthernTechHQ/nt-gui/commit/ba94fa5e6cb483f3d6d4b6885817b3ea544fc677))
+
 ## [0.1.0](https://github.com/NorthernTechHQ/nt-gui/compare/@northern.tech/utils-0.0.1...@northern.tech/utils-0.1.0) (2024-11-05)
 
 
