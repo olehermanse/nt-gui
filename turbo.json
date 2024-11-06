@@ -9,15 +9,10 @@
       "outputs": [
         "dist/**",
         "storybook-static/**"
-      ],
-      "dependsOn": [
-        "^build"
       ]
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
+      "cache": true
     },
     "dev": {
       "cache": false,
@@ -27,19 +22,17 @@
       "dependsOn": [
         "^build",
         "^lint",
-        "^test",
-        "^pre-publish"
+        "^test"
       ]
     },
     "test": {
-      "cache": false
+      "cache": true
     },
     "publish": {
       "dependsOn": [
         "^build",
         "^lint",
-        "^test",
-        "^publish"
+        "^test"
       ]
     },
     "clean": {
