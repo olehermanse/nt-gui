@@ -1,7 +1,11 @@
 {
   "name": "nt-gui-packages",
-  "private": true,
   "license": "Apache-2.0",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
+  },
   "scripts": {
     "build": "vite build",
     "dev": "vite dev",

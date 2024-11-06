@@ -2,6 +2,14 @@
   "name": "@northern.tech/common",
   "version": "0.1.0",
   "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
+  },
   "exports": {
     "./button": {
       "types": "./src/button.tsx",
@@ -27,8 +35,5 @@
   },
   "peerDependencies": {
     "react": "^18.x"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

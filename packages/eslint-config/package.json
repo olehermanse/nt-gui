@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
+  },
   "files": [
     "library.js",
     "react.js",
@@ -22,9 +29,6 @@
   },
   "devDependencies": {
     "tsup": "8.3.5"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "scripts": {
     "build": "tsup library.js react.js storybook.js",
