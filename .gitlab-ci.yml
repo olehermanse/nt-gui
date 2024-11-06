@@ -49,7 +49,6 @@ lint:
   stage: test
   needs: []
   script:
-    - npm i @rollup/rollup-linux-x64-gnu # workaround for https://github.com/npm/cli/issues/4828
     - npm ci
     - npm run lint
 
@@ -57,7 +56,6 @@ build:
   stage: build
   needs: []
   script:
-    - npm i @rollup/rollup-linux-x64-gnu # workaround for https://github.com/npm/cli/issues/4828
     - npm ci
     - npm run release
     - npm run build-storybook
