@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/NorthernTechHQ/nt-gui/compare/@northern.tech/store-0.1.0...@northern.tech/store-0.1.1) (2024-11-06)
+
+
+### Bug Fixes
+
+* allowed more flexible dependency versions ([ff85836](https://github.com/NorthernTechHQ/nt-gui/commit/ff85836679b61109c34d6e86f711f749e8d0f504))
+
 ## [0.1.0](https://github.com/NorthernTechHQ/nt-gui/compare/@northern.tech/store-0.0.1...@northern.tech/store-0.1.0) (2024-11-05)
 
 
