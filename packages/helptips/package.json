@@ -1,0 +1,36 @@
+{
+  "name": "@northern.tech/helptips",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint .",
+    "publish": "npm publish",
+    "pre-publish": "npm publish --tag next"
+  },
+  "files": [
+    "src/baseonboardingtip.js",
+    "src/helptooltips.js",
+    "src/onboardingcompletetip.js",
+    "src/onboardingtips.js"
+  ],
+  "devDependencies": {
+    "@northern.tech/eslint-config": "*",
+    "@northern.tech/typescript-config": "*",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "14.5.2",
+    "redux-mock-store": "1.5.5",
+    "eslint": "^8.57.0",
+    "tsup": "8.3.0"
+  },
+  "peerDependencies": {
+    "@northern.tech/common-ui": "*",
+    "@northern.tech/store": "*",
+    "@northern.tech/utils": "*",
+    "@mui/icons-material": "6.1.6",
+    "react": "^18.3.1",
+    "react-redux": "9.1.2",
+    "@mui/material": "6.1.6",
+    "tss-react": "4.9.13"
+  }
+}
