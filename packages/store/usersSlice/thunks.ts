@@ -762,21 +762,21 @@ export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelp
 });
 
 interface SubmitFeedbackPayload {
-    satisfaction: string;
-    feedback: string;
-    meta?: Record<string, unknown>;
+  satisfaction: string;
+  feedback: string;
+  meta?: Record<string, unknown>;
 }
 
 export const submitFeedback = createAsyncThunk<SubmitFeedbackPayload, SubmitFeedbackPayload>(
-    `${sliceName}/submitFeedback`,
-    ({ satisfaction, feedback, ...meta }, { dispatch }) => {
-        return GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
-            subject: 'feedback submission',
-            body: JSON.stringify({ feedback, satisfaction, meta })
-        }).then(() => {
-            const today = new Date();
-            dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
-            setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
-        });
-    }
+  `${sliceName}/submitFeedback`,
+  ({ satisfaction, feedback, ...meta }, { dispatch }) => {
+    return GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
+      subject: 'feedback submission',
+      body: JSON.stringify({ feedback, satisfaction, meta })
+    }).then(() => {
+      const today = new Date();
+      dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
+      setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
+    });
+  }
 );
