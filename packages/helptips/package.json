@@ -1,6 +1,15 @@
 {
   "name": "@northern.tech/helptips",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
+  },
   "scripts": {
     "build": "tsup",
     "lint": "eslint .",
