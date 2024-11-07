@@ -107,19 +107,19 @@ changelog:
     - rm tmp_pr_body.md
     # deal with the component's changelogs
     - for component in $(jq -r 'keys | del(.[] | select(. == "."))[]' .release-please-manifest.json); do
-        component_name=$(echo "$component" | cut -d'/' -f2);
-        RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" | grep ${component_name} | awk '{print $1}');
-        gh pr checkout --force $RELEASE_PLEASE_PR;
-        cd $component;
-        wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped;
-        git cliff --unreleased --bump --output ./CHANGELOG.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL};
-        git add CHANGELOG.md;
-        git commit --amend -s --no-edit;
-        git push github-${CI_JOB_ID} --force;
-        git cliff --unreleased --bump -o tmp_pr_body.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL};
-        gh pr edit $RELEASE_PLEASE_PR --body-file tmp_pr_body.md;
-        rm tmp_pr_body.md;
-        cd ../..;
+      component_name=$(echo "$component" | cut -d'/' -f2);
+      RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" | grep ${component_name} | awk '{print $1}');
+      gh pr checkout --force $RELEASE_PLEASE_PR;
+      cd $component;
+      wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped;
+      git cliff --unreleased --bump --output ./CHANGELOG.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL};
+      git add CHANGELOG.md;
+      git commit --amend -s --no-edit;
+      git push github-${CI_JOB_ID} --force;
+      git cliff --unreleased --bump -o tmp_pr_body.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL};
+      gh pr edit $RELEASE_PLEASE_PR --body-file tmp_pr_body.md;
+      rm tmp_pr_body.md;
+      cd ../..;
       done
   after_script:
     - git remote remove github-${CI_JOB_ID}
@@ -129,22 +129,35 @@ release:github:
   rules:
     - if: $CI_COMMIT_BRANCH =~ "/^\d+\.\d+\.x$/" # Release from maintenance branches
       when: manual
-      allow-failure: true
     - if: $CI_COMMIT_BRANCH == $DEFAULT_BRANCH
       when: manual
-      allow-failure: true
   needs:
     - job: changelog
   script:
     - npm install -g release-please
     - npm ci
-    - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
-    - npm run publish-packages
     - release-please github-release
       --token=${GITHUB_BOT_TOKEN_REPO_FULL}
       --repo-url=${GITHUB_REPO_URL}
       --target-branch=${CI_COMMIT_REF_NAME}
       --monorepo-tags
+
+release:npmjs:
+  stage: .post
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ "/^\d+\.\d+\.x$/" # Release from maintenance branches
+      when: manual
+    - if: $CI_COMMIT_BRANCH == $DEFAULT_BRANCH
+      when: manual
+  needs:
+    - job: changelog
+  script:
+    - npm ci
+    - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
+    - npm run publish-packages
+  allow_failure:
+    exit_codes:
+      - 1
 
 pages:
   stage: release
