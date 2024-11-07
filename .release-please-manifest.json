@@ -5,5 +5,7 @@
   "packages/prettier-config": "0.0.1",
   "packages/store": "0.1.2",
   "packages/typescript-config": "0.1.0",
-  "packages/utils": "0.1.2"
+  "packages/utils": "0.1.2",
+  "packages/common-ui": "0.0.1",
+  "packages/helptips": "0.0.1"
 }

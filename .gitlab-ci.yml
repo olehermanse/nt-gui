@@ -50,6 +50,7 @@ lint:
   needs: []
   script:
     - npm ci
+    - npm run release
     - npm run lint
 
 build:

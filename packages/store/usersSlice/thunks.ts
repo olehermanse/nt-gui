@@ -761,13 +761,22 @@ export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelp
   return Promise.resolve(dispatch(actions.setTooltipsState(updatedTips))).then(() => dispatch(saveUserSettings()));
 });
 
-export const submitFeedback = createAsyncThunk(`${sliceName}/submitFeedback`, ({ satisfaction, feedback, ...meta }, { dispatch }) =>
-  GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
-    subject: 'feedback submission',
-    body: JSON.stringify({ feedback, satisfaction, meta })
-  }).then(() => {
-    const today = new Date();
-    dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
-    setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
-  })
+interface SubmitFeedbackPayload {
+  satisfaction: string;
+  feedback: string;
+  meta?: Record<string, unknown>;
+}
+
+export const submitFeedback = createAsyncThunk<SubmitFeedbackPayload, SubmitFeedbackPayload>(
+  `${sliceName}/submitFeedback`,
+  ({ satisfaction, feedback, ...meta }, { dispatch }) => {
+    return GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
+      subject: 'feedback submission',
+      body: JSON.stringify({ feedback, satisfaction, meta })
+    }).then(() => {
+      const today = new Date();
+      dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
+      setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
+    });
+  }
 );

@@ -15,7 +15,7 @@ module.exports = {
     node: true,
     jest: true
   },
-  extends: ['eslint:recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:react/recommended'], //, 'plugin:react-hooks/recommended'],
+  extends: ['eslint:recommended', 'plugin:import/errors', 'plugin:import/warnings', 'plugin:react/recommended', 'plugin:react-hooks/recommended'],
   settings: {
     'import/resolver': {
       typescript: {
@@ -68,6 +68,8 @@ module.exports = {
     'sonarjs/cognitive-complexity': ['error', 17],
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/no-unused-vars': 'error'
+    '@typescript-eslint/no-unused-vars': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn'
   }
 };
