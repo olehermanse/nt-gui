@@ -7,6 +7,13 @@
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
   },
+  "exports": {
+    "./*": {
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js",
+      "types": "./dist/*.js"
+    }
+  },
   "devDependencies": {
     "@northern.tech/eslint-config": "*",
     "@northern.tech/typescript-config": "*",
