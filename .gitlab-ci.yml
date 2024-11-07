@@ -129,10 +129,8 @@ release:github:
   rules:
     - if: $CI_COMMIT_BRANCH =~ "/^\d+\.\d+\.x$/" # Release from maintenance branches
       when: manual
-      allow-failure: true
     - if: $CI_COMMIT_BRANCH == $DEFAULT_BRANCH
       when: manual
-      allow-failure: true
   needs:
     - job: changelog
   script:
