@@ -27,7 +27,6 @@ import { OnboardingTooltip } from '@northern.tech/common-ui/mendertooltip';
 import storeActions from '@northern.tech/store/actions';
 import { TIMEOUTS } from '@northern.tech/store/constants';
 import { toggle } from '@northern.tech/utils/helpers';
-
 import Tracking from '@northern.tech/utils/tracking';
 
 const { setShowDismissOnboardingTipsDialog } = storeActions;
