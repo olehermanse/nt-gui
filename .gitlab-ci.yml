@@ -153,6 +153,7 @@ release:npmjs:
     - job: changelog
   script:
     - npm ci
+    - npm run release
     - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
     - npm run publish-packages
   allow_failure:
