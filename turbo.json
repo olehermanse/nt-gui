@@ -20,9 +20,9 @@
     },
     "pre-publish": {
       "dependsOn": [
-        "^build",
-        "^lint",
-        "^test"
+        "build",
+        "lint",
+        "test"
       ]
     },
     "test": {
@@ -30,9 +30,9 @@
     },
     "publish": {
       "dependsOn": [
-        "^build",
-        "^lint",
-        "^test"
+        "build",
+        "lint",
+        "test"
       ]
     },
     "clean": {
