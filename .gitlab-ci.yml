@@ -111,6 +111,7 @@ changelog:
         echo "the PR for the bundle component is already merged - skipping"
       fi
     # deal with the component's changelogs
+    - jq -r 'keys | del(.[] | select(. == "."))[]' .release-please-manifest.json # debug
     - for component in $(jq -r 'keys | del(.[] | select(. == "."))[]' .release-please-manifest.json); do
       component_name=$(echo "$component" | cut -d'/' -f2);
       RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" | grep ${component_name} | awk '{print $1}');
