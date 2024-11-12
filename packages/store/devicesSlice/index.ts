@@ -196,6 +196,22 @@ export const devicesSlice = createSlice({
       }
     }
   }
+  // extraReducers: {
+  //   [setDeviceListState.fulfilled]: (state, action) => {
+  //     console.log('action', action);
+  //     console.log('action', action);
+  //     console.log('action', action);
+  //     console.log('action', action);
+  //     state.deviceList = {
+  //       ...state.deviceList,
+  //       ...action.payload,
+  //       sort: {
+  //         ...state.deviceList.sort,
+  //         ...action.payload.sort
+  //       }
+  //     };
+  //   }
+  // }
   // The following would likely be the way to go with a simpler store setup, but ours seems too entangled for this to provide much benefit
   // import * as actionCreators from './thunks';
   // extraReducers: {

@@ -14,7 +14,6 @@
 // @ts-nocheck
 import storeActions from '@northern.tech/store/actions';
 import Api from '@northern.tech/store/api/general-api';
-import { Tenant } from '@northern.tech/store/api/types/MenderTypes';
 import {
   DEVICE_LIST_DEFAULTS,
   SORTING_OPTIONS,
@@ -35,6 +34,7 @@ import hashString from 'md5';
 import Cookies from 'universal-cookie';
 
 import { actions, sliceName } from '.';
+import { Tenant } from '../../components/tenants/types';
 import { SSO_TYPES, auditLogsApiUrl, ssoIdpApiUrlv1, tenantadmApiUrlv1, tenantadmApiUrlv2 } from './constants';
 import { getAuditlogState, getOrganization } from './selectors';
 
@@ -221,20 +221,18 @@ interface editTenantBody {
 export const editTenantDeviceLimit = createAsyncThunk(`${sliceName}/editDeviceLimit`, ({ newLimit, id, name }: editTenantBody, { dispatch }) => {
   return Api.put(`${tenantadmApiUrlv2}/tenants/${id}/child`, { device_limit: newLimit, name })
     .catch(err => commonErrorHandler(err, `Device Limit cannot be changed`, dispatch))
-    .then(() => Promise.resolve(dispatch(setSnackbar({ message: 'Device Limit was changed successfully', autoHideDuration: TIMEOUTS.fiveSeconds }))))
-    .then(() => dispatch(getTenants()));
+    .then(() => {
+      const tasks = [Promise.resolve(dispatch(setSnackbar('Device Limit was changed successfully')))];
+      tasks.push(dispatch(getTenants()));
+      tasks.push(dispatch(getUserOrganization()));
+      return Promise.all(tasks);
+    });
 });
 export const removeTenant = createAsyncThunk(`${sliceName}/editDeviceLimit`, ({ id }: { id: string }, { dispatch }) => {
   return Api.post(`${tenantadmApiUrlv2}/tenants/${id}/remove/start`)
     .catch(err => commonErrorHandler(err, `There was an error removing the tenant`, dispatch))
-    .then(() => {
-      const tasks = [Promise.resolve(dispatch(setSnackbar({ message: 'Tenant was removed successfully', autoHideDuration: TIMEOUTS.fiveSeconds })))];
-      tasks.push(dispatch(getTenants()));
-      tasks.push(setTenantsListState({ selectedTenant: null }));
-      return Promise.all(tasks);
-    });
+    .then(() => Promise.all([Promise.resolve(dispatch(setSnackbar('Device Limit was changed successfully'))), dispatch(getTenants()), dispatch(getUserOrganization())]));
 });
-
 export const getUserOrganization = createAsyncThunk(`${sliceName}/getUserOrganization`, (_, { dispatch, getState }) => {
   return Api.get(`${tenantadmApiUrlv1}/user/tenant`).then(res => {
     let tasks = [dispatch(actions.setOrganization(res.data))];

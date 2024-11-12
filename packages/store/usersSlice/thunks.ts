@@ -14,6 +14,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 // @ts-nocheck
+import { HELPTOOLTIPS } from '@northern.tech/helptips/helptooltips';
 import storeActions from '@northern.tech/store/actions';
 import GeneralApi from '@northern.tech/store/api/general-api';
 import UsersApi from '@northern.tech/store/api/users-api';
@@ -80,12 +81,14 @@ const handleLoginError =
     const errorMessage = `There was a problem logging in. Please check your email${
       twoFAError ? ',' : ' and'
     } password${twoFAError}. If you still have problems, contact an administrator.`;
+    // @ts-ignore
     return Promise.reject(dispatch(setSnackbar(preformatWithRequestID(err.response, errorMessage), null, 'Copy to clipboard')));
   };
 
 /*
   User management
 */
+// @ts-ignore
 export const loginUser = createAsyncThunk(`${sliceName}/loginUser`, ({ stayLoggedIn, ...userData }, { dispatch, rejectWithValue }) =>
   UsersApi.postLogin(`${useradmApiUrl}/auth/login`, { ...userData, no_expiry: stayLoggedIn })
     .catch(err => {
@@ -113,23 +116,29 @@ export const loginUser = createAsyncThunk(`${sliceName}/loginUser`, ({ stayLogge
       const expiresAt = stayLoggedIn ? undefined : now.toISOString();
       setSessionInfo({ token, expiresAt });
       cookies.remove('JWT', { path: '/' });
-      return Promise.resolve(dispatch(getUser(OWN_USER_ID)))
-        .unwrap()
-        .catch(e => {
-          cleanUp();
-          return Promise.reject(dispatch(setSnackbar(extractErrorMessage(e))));
-        })
-        .then(() => {
-          window.sessionStorage.removeItem('pendings-redirect');
-          if (window.location.pathname !== '/ui/') {
-            window.location.replace('/ui/');
-          }
-          return Promise.resolve(dispatch(actions.successfullyLoggedIn({ expiresAt, token })));
-        });
+      // @ts-ignore
+      return (
+        // @ts-ignore
+        Promise.resolve(dispatch(getUser(OWN_USER_ID)))
+          // @ts-ignore
+          .unwrap()
+          .catch(e => {
+            cleanUp();
+            return Promise.reject(dispatch(setSnackbar(extractErrorMessage(e))));
+          })
+          .then(() => {
+            window.sessionStorage.removeItem('pendings-redirect');
+            if (window.location.pathname !== '/ui/') {
+              window.location.replace('/ui/');
+            }
+            return Promise.resolve(dispatch(actions.successfullyLoggedIn({ expiresAt, token })));
+          })
+      );
     })
 );
 
 export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`, (_, { dispatch, getState }) => {
+  // @ts-ignore
   if (Object.keys(getState().app.uploadsById).length) {
     return Promise.reject();
   }
@@ -141,10 +150,12 @@ export const logoutUser = createAsyncThunk(`${sliceName}/logoutUser`, (_, { disp
 });
 
 export const switchUserOrganization = createAsyncThunk(`${sliceName}/switchUserOrganization`, (tenantId, { getState }) => {
+  // @ts-ignore
   if (Object.keys(getState().app.uploadsById).length) {
     return Promise.reject();
   }
   return GeneralApi.get(`${useradmApiUrl}/users/tenants/${tenantId}/token`).then(({ data: token }) => {
+    // @ts-ignore
     setSessionInfo({ ...getSessionInfo(), token });
     window.location.reload();
   });
@@ -155,7 +166,7 @@ export const passwordResetStart = createAsyncThunk(`${sliceName}/passwordResetSt
     commonErrorHandler(err, `The password reset request cannot be processed:`, dispatch, undefined, true)
   )
 );
-
+// @ts-ignore
 export const passwordResetComplete = createAsyncThunk(`${sliceName}/passwordResetComplete`, ({ secretHash, newPassword }, { dispatch }) =>
   GeneralApi.post(`${useradmApiUrl}/auth/password-reset/complete`, { secret_hash: secretHash, password: newPassword }).catch((err = {}) => {
     const { error, response = {} } = err;
@@ -172,18 +183,23 @@ export const passwordResetComplete = createAsyncThunk(`${sliceName}/passwordRese
 
 export const verifyEmailStart = createAsyncThunk(`${sliceName}/verifyEmailStart`, (_, { dispatch, getState }) =>
   GeneralApi.post(`${useradmApiUrl}/auth/verify-email/start`, { email: getCurrentUser(getState()).email })
+    // @ts-ignore
     .catch(err => commonErrorHandler(err, 'An error occured starting the email verification process:', dispatch))
+    // @ts-ignore
     .finally(() => Promise.resolve(dispatch(getUser(OWN_USER_ID))))
 );
 
 export const verifyEmailComplete = createAsyncThunk(`${sliceName}/verifyEmailComplete`, (secret_hash, { dispatch }) =>
   GeneralApi.post(`${useradmApiUrl}/auth/verify-email/complete`, { secret_hash })
+    // @ts-ignore
     .catch(err => commonErrorHandler(err, 'An error occured completing the email verification process:', dispatch))
+    // @ts-ignore
     .finally(() => Promise.resolve(dispatch(getUser(OWN_USER_ID))))
 );
 
 export const verify2FA = createAsyncThunk(`${sliceName}/verify2FA`, (tfaData, { dispatch }) =>
   UsersApi.putVerifyTFA(`${useradmApiUrl}/2faverify`, tfaData)
+    // @ts-ignore
     .then(() => Promise.resolve(dispatch(getUser(OWN_USER_ID))))
     .catch(err =>
       commonErrorHandler(err, 'An error occured validating the verification code: failed to verify token, please try again.', dispatch, undefined, true)
@@ -207,22 +223,25 @@ export const getUser = createAsyncThunk(`${sliceName}/getUser`, (id, { dispatch,
     .then(({ data: user }) =>
       Promise.all([
         dispatch(actions.receivedUser(user)),
+        // @ts-ignore
         dispatch(setHideAnnouncement({ shouldHide: false, userId: user.id })),
+        // @ts-ignore
         dispatch(updateUserColumnSettings({ currentUserId: user.id })),
         user
       ])
     )
     .catch(e => rejectWithValue(e))
 );
-
+// @ts-ignore
 export const initializeSelf = createAsyncThunk(`${sliceName}/initializeSelf`, (_, { dispatch }) => dispatch(getUser(OWN_USER_ID)));
-
+// @ts-ignore
 export const updateUserColumnSettings = createAsyncThunk(`${sliceName}/updateUserColumnSettings`, ({ columns, currentUserId }, { dispatch, getState }) => {
   const userId = currentUserId ?? getCurrentUser(getState()).id;
   const storageKey = `${userId}-column-widths`;
   let customColumns = [];
   if (!columns) {
     try {
+      // @ts-ignore
       customColumns = JSON.parse(window.localStorage.getItem(storageKey)) || customColumns;
     } catch {
       // most likely the column info doesn't exist yet or is lost - continue
@@ -252,9 +271,9 @@ const userActions = {
     errorMessage: 'removing'
   }
 };
-
+// @ts-ignore
 const userActionErrorHandler = (err, type, dispatch) => commonErrorHandler(err, `There was an error ${userActions[type].errorMessage} the user.`, dispatch);
-
+// @ts-ignore
 export const createUser = createAsyncThunk(`${sliceName}/createUser`, ({ shouldResetPassword, ...userData }, { dispatch }) =>
   GeneralApi.post(`${useradmApiUrl}/users`, { ...userData, send_reset_password: shouldResetPassword })
     .then(() => Promise.all([dispatch(actions.createdUser(userData)), dispatch(getUserList()), dispatch(setSnackbar(userActions.create.successMessage))]))
@@ -262,11 +281,12 @@ export const createUser = createAsyncThunk(`${sliceName}/createUser`, ({ shouldR
 );
 
 export const removeUser = createAsyncThunk(`${sliceName}/removeUser`, (userId, { dispatch }) =>
+  // @ts-ignore
   GeneralApi.delete(`${useradmApiUrl}/users/${userId}`)
     .then(() => Promise.all([dispatch(actions.removedUser(userId)), dispatch(getUserList()), dispatch(setSnackbar(userActions.remove.successMessage))]))
     .catch(err => userActionErrorHandler(err, 'remove', dispatch))
 );
-
+// @ts-ignore
 export const editUser = createAsyncThunk(`${sliceName}/editUser`, ({ id, ...userData }, { dispatch, getState }) =>
   GeneralApi.put(`${useradmApiUrl}/users/${id}`, userData).then(() =>
     Promise.all([
@@ -278,20 +298,27 @@ export const editUser = createAsyncThunk(`${sliceName}/editUser`, ({ id, ...user
 
 export const addUserToCurrentTenant = createAsyncThunk(`${sliceName}/addUserToTenant`, (userId, { dispatch, getState }) => {
   const { id } = getOrganization(getState());
-  return GeneralApi.post(`${useradmApiUrl}/users/${userId}/assign`, { tenant_ids: [id] })
-    .catch(err => commonErrorHandler(err, `There was an error adding the user to your organization:`, dispatch))
-    .then(() => Promise.all([dispatch(setSnackbar(userActions.add.successMessage)), dispatch(getUserList())]));
+  return (
+    GeneralApi.post(`${useradmApiUrl}/users/${userId}/assign`, { tenant_ids: [id] })
+      // @ts-ignore
+      .catch(err => commonErrorHandler(err, `There was an error adding the user to your organization:`, dispatch))
+      .then(() => Promise.all([dispatch(setSnackbar(userActions.add.successMessage)), dispatch(getUserList())]))
+  );
 });
-
+// @ts-ignore
 export const enableUser2fa = createAsyncThunk(`${sliceName}/enableUser2fa`, (userId = OWN_USER_ID, { dispatch }) =>
   GeneralApi.post(`${useradmApiUrl}/users/${userId}/2fa/enable`)
+    // @ts-ignore
     .catch(err => commonErrorHandler(err, `There was an error enabling Two Factor authentication for the user.`, dispatch))
+    // @ts-ignore
     .then(() => Promise.resolve(dispatch(getUser(userId))))
 );
-
+// @ts-ignore
 export const disableUser2fa = createAsyncThunk(`${sliceName}/disableUser2fa`, (userId = OWN_USER_ID, { dispatch }) =>
   GeneralApi.post(`${useradmApiUrl}/users/${userId}/2fa/disable`)
+    // @ts-ignore
     .catch(err => commonErrorHandler(err, `There was an error disabling Two Factor authentication for the user.`, dispatch))
+    // @ts-ignore
     .then(() => Promise.resolve(dispatch(getUser(userId))))
 );
 
@@ -303,8 +330,10 @@ const mapHttpPermission = permission =>
         endpoint => endpoint.path.test(permission.value) && (endpoint.types.includes(permission.type) || permission.type === PermissionTypes.Any)
       );
       if (permission.value === PermissionTypes.Any || (permission.value.includes(apiRoot) && endpointMatches.length)) {
+        // @ts-ignore
         const endpointUiPermission = endpointMatches.reduce((endpointAccu, endpoint) => [...endpointAccu, ...endpoint.uiPermissions], []);
         const collector = (endpointUiPermission || definition.uiPermissions)
+          // @ts-ignore
           .reduce((permissionsAccu, uiPermission) => {
             if (permission.type === PermissionTypes.Any || (!endpointMatches.length && uiPermission.verbs.some(verb => verb === permission.type))) {
               permissionsAccu.push(uiPermission.value);
@@ -350,6 +379,7 @@ const permissionActionTypes = {
 const combinePermissions = (existingPermissions, additionalPermissions = {}) =>
   Object.entries(additionalPermissions).reduce((accu, [name, permissions]) => {
     let maybeExistingPermissions = accu[name] || [];
+    // @ts-ignore
     accu[name] = [...permissions, ...maybeExistingPermissions].filter(duplicateFilter);
     return accu;
   }, existingPermissions);
@@ -370,6 +400,7 @@ const customPermissionHandler = (accu, permission) => {
 };
 
 const mapPermissionSet = (permissionSetName, names, scope, existingGroupsPermissions = {}) => {
+  // @ts-ignore
   const permission = Object.values(uiPermissionsById).find(permission => permission.permissionSets[scope] === permissionSetName).value;
   const scopedPermissions = names.reduce((accu, name) => combinePermissions(accu, { [name]: [permission] }), existingGroupsPermissions);
   return Object.entries(scopedPermissions).reduce((accu, [key, permissions]) => ({ ...accu, [key]: deriveImpliedAreaPermissions(scope, permissions) }), {});
@@ -386,12 +417,15 @@ const isEmptyPermissionSet = permissionSet =>
 const parseRolePermissions = ({ permission_sets_with_scope = [], permissions = [] }, permissionSets) => {
   const preliminaryResult = permission_sets_with_scope.reduce(
     (accu, permissionSet) => {
+      // @ts-ignore
       let processor = permissionSets[permissionSet.name];
       if (!processor) {
         return accu;
       }
+      // @ts-ignore
       const scope = Object.keys(scopedPermissionAreas).find(scope => uiPermissionsByArea[scope].scope === permissionSet.scope?.type);
       if (scope) {
+        // @ts-ignore
         const result = mapPermissionSet(permissionSet.name, permissionSet.scope.value, scope, accu.uiPermissions[scope]);
         return { ...accu, uiPermissions: { ...accu.uiPermissions, [scope]: result } };
       } else if (isEmptyPermissionSet(processor.result)) {
@@ -462,17 +496,20 @@ export const getPermissionSets = createAsyncThunk(`${sliceName}/getPermissionSet
           );
           const scopes = Object.values(scopedPermissionAreas).reduce((accu, { key, scopeType }) => {
             if (permissionSetObject.supported_scope_types?.includes(key) || permissionSetObject.supported_scope_types?.includes(scopeType)) {
+              // @ts-ignore
               accu.push(key);
             }
             return accu;
           }, []);
           permissionSetObject = scopes.reduce((accu, scope) => {
+            // @ts-ignore
             accu.result[scope] = mapPermissionSet(permissionSetObject.name, [scopedPermissionAreas[scope].excessiveAccessSelector], scope);
             return accu;
           }, permissionSetObject);
           accu[permissionSet.name] = permissionSetObject;
           return accu;
         },
+        // @ts-ignore
         { ...getState().users.permissionSetsById }
       );
       return Promise.all([dispatch(actions.receivedPermissionSets(permissionSets)), permissionSets]);
@@ -482,11 +519,13 @@ export const getPermissionSets = createAsyncThunk(`${sliceName}/getPermissionSet
 
 export const getRoles = createAsyncThunk(`${sliceName}/getRoles`, (_, { dispatch, getState }) =>
   Promise.all([GeneralApi.get(`${useradmApiUrlv2}/roles?per_page=500`), dispatch(getPermissionSets())])
+    // @ts-ignore
     .then(results => {
       if (!results) {
         return Promise.resolve();
       }
       const [{ data: roles }, { payload: permissionSetTasks }] = results;
+      // @ts-ignore
       const rolesById = normalizeRbacRoles(roles, getRolesById(getState()), permissionSetTasks[permissionSetTasks.length - 1]);
       return Promise.resolve(dispatch(actions.receivedRoles(rolesById)));
     })
@@ -499,6 +538,7 @@ const deriveImpliedAreaPermissions = (area, areaPermissions, skipPermissions = [
     1
   );
   return uiPermissionsByArea[area].uiPermissions.reduce((permissions, current) => {
+    // @ts-ignore
     if ((current.permissionLevel < highestAreaPermissionLevelSelected || areaPermissions.includes(current.value)) && !skipPermissions.includes(current.value)) {
       permissions.push(current.value);
     }
@@ -514,6 +554,7 @@ const transformAreaRoleDataToScopedPermissionsSets = (area, areaPermissions, exc
   const permissionSetObject = areaPermissions.reduce((accu, { item, uiPermissions }) => {
     // if permission area is release and item is release tag (not all releases) then exclude upload permission as it cannot be applied to tags
     const skipPermissions = scopedPermissionAreas.releases.key === area && item !== ALL_RELEASES ? [uiPermissionsById.upload.value] : [];
+    // @ts-ignore
     const impliedPermissions = deriveImpliedAreaPermissions(area, uiPermissions, skipPermissions);
     accu = impliedPermissions.reduce((itemPermissionAccu, impliedPermission) => {
       const permissionSetState = itemPermissionAccu[uiPermissionsById[impliedPermission].permissionSets[area]] ?? {
@@ -528,6 +569,7 @@ const transformAreaRoleDataToScopedPermissionsSets = (area, areaPermissions, exc
     }, accu);
     return accu;
   }, {});
+  // @ts-ignore
   return Object.entries(permissionSetObject).map(([name, { value, ...scope }]) => {
     if (value.includes(excessiveAccessSelector)) {
       return { name };
@@ -542,6 +584,7 @@ const transformRoleDataToRole = (roleData, roleState = {}) => {
   const { maybeUiPermissions, remainderKeys } = Object.entries(emptyUiPermissions).reduce(
     (accu, [key, emptyPermissions]) => {
       if (!scopedPermissionAreas[key]) {
+        // @ts-ignore
         accu.remainderKeys.push(key);
       } else if (uiPermissions[key]) {
         accu.maybeUiPermissions[key] = uiPermissions[key].reduce(itemUiPermissionsReducer, emptyPermissions);
@@ -557,6 +600,7 @@ const transformRoleDataToRole = (roleData, roleState = {}) => {
         return accu;
       }
       const impliedPermissions = deriveImpliedAreaPermissions(area, areaPermissions);
+      // @ts-ignore
       accu.roleUiPermissions[area] = impliedPermissions;
       const mappedPermissions = impliedPermissions.map(uiPermission => ({ name: uiPermissionsById[uiPermission].permissionSets[area] }));
       accu.permissionSetsWithScope.push(...mappedPermissions);
@@ -568,6 +612,7 @@ const transformRoleDataToRole = (roleData, roleState = {}) => {
     if (!uiPermissions[key]) {
       return accu;
     }
+    // @ts-ignore
     accu.push(...transformAreaRoleDataToScopedPermissionsSets(key, uiPermissions[key], excessiveAccessSelector));
     return accu;
   }, []);
@@ -576,6 +621,7 @@ const transformRoleDataToRole = (roleData, roleState = {}) => {
     role: {
       ...emptyRole,
       name,
+      // @ts-ignore
       description: description ? description : roleState.description,
       uiPermissions: {
         ...emptyUiPermissions,
@@ -600,7 +646,7 @@ const roleActions = {
     errorMessage: 'removing'
   }
 };
-
+// @ts-ignore
 const roleActionErrorHandler = (err, type, dispatch) => commonErrorHandler(err, `There was an error ${roleActions[type].errorMessage} the role.`, dispatch);
 
 export const createRole = createAsyncThunk(`${sliceName}/createRole`, (roleData, { dispatch }) => {
@@ -615,6 +661,7 @@ export const createRole = createAsyncThunk(`${sliceName}/createRole`, (roleData,
 });
 
 export const editRole = createAsyncThunk(`${sliceName}/editRole`, (roleData, { dispatch, getState }) => {
+  // @ts-ignore
   const { permissionSetsWithScope, role } = transformRoleDataToRole(roleData, getRolesById(getState())[roleData.name]);
   return GeneralApi.put(`${useradmApiUrlv2}/roles/${role.name}`, {
     description: role.description,
@@ -626,6 +673,7 @@ export const editRole = createAsyncThunk(`${sliceName}/editRole`, (roleData, { d
 });
 
 export const removeRole = createAsyncThunk(`${sliceName}/removeRole`, (roleId, { dispatch }) =>
+  // @ts-ignore
   GeneralApi.delete(`${useradmApiUrlv2}/roles/${roleId}`)
     .then(() => Promise.all([dispatch(actions.removedRole(roleId)), dispatch(getRoles()), dispatch(setSnackbar(roleActions.remove.successMessage))]))
     .catch(err => roleActionErrorHandler(err, 'remove', dispatch))
@@ -636,6 +684,7 @@ export const removeRole = createAsyncThunk(`${sliceName}/removeRole`, (roleId, {
 */
 export const getGlobalSettings = createAsyncThunk(`${sliceName}/getGlobalSettings`, (_, { dispatch }) =>
   GeneralApi.get(`${useradmApiUrl}/settings`).then(({ data: settings, headers: { etag } }) => {
+    // @ts-ignore
     window.sessionStorage.setItem(settingsKeys.initialized, true);
     return Promise.all([dispatch(actions.setGlobalSettings(settings)), dispatch(setOfflineThreshold()), etag]);
   })
@@ -643,6 +692,7 @@ export const getGlobalSettings = createAsyncThunk(`${sliceName}/getGlobalSetting
 
 export const saveGlobalSettings = createAsyncThunk(
   `${sliceName}/saveGlobalSettings`,
+  // @ts-ignore
   ({ beOptimistic = false, notify = false, ...settings }, { dispatch, getState }) => {
     if (!window.sessionStorage.getItem(settingsKeys.initialized) && !beOptimistic) {
       return;
@@ -650,6 +700,7 @@ export const saveGlobalSettings = createAsyncThunk(
     return dispatch(getGlobalSettings())
       .unwrap()
       .then(result => {
+        // @ts-ignore
         let updatedSettings = { ...getState().users.globalSettings, ...settings };
         if (getCurrentUser(getState()).verified) {
           updatedSettings['2fa'] = twoFAStates.enabled;
@@ -661,6 +712,7 @@ export const saveGlobalSettings = createAsyncThunk(
         return GeneralApi.post(`${useradmApiUrl}/settings`, updatedSettings, { headers })
           .then(() => {
             if (notify) {
+              // @ts-ignore
               tasks.push(dispatch(setSnackbar('Settings saved successfully')));
             }
             return Promise.all(tasks);
@@ -670,6 +722,7 @@ export const saveGlobalSettings = createAsyncThunk(
               return Promise.all([tasks]);
             }
             console.log(err);
+            // @ts-ignore
             return commonErrorHandler(err, `The settings couldn't be saved.`, dispatch);
           });
       });
@@ -678,11 +731,12 @@ export const saveGlobalSettings = createAsyncThunk(
 
 export const getUserSettings = createAsyncThunk(`${sliceName}/getUserSettings`, (_, { dispatch }) =>
   GeneralApi.get(`${useradmApiUrl}/settings/me`).then(({ data: settings, headers: { etag } }) => {
+    // @ts-ignore
     window.sessionStorage.setItem(settingsKeys.initialized, true);
     return Promise.all([dispatch(actions.setUserSettings(settings)), etag]);
   })
 );
-
+// @ts-ignore
 export const saveUserSettings = createAsyncThunk(`${sliceName}/saveUserSettings`, (settings = { onboarding: {} }, { dispatch, getState }) => {
   if (!getCurrentUser(getState()).id) {
     return Promise.resolve();
@@ -695,9 +749,11 @@ export const saveUserSettings = createAsyncThunk(`${sliceName}/saveUserSettings`
       const tooltipState = getTooltipsState(getState());
       const updatedSettings = {
         ...userSettings,
+        // @ts-ignore
         ...settings,
         onboarding: {
           ...onboardingState,
+          // @ts-ignore
           ...settings.onboarding
         },
         tooltips: tooltipState
@@ -713,13 +769,15 @@ export const saveUserSettings = createAsyncThunk(`${sliceName}/saveUserSettings`
 export const get2FAQRCode = createAsyncThunk(`${sliceName}/get2FAQRCode`, (_, { dispatch }) =>
   GeneralApi.get(`${useradmApiUrl}/2faqr`).then(res => dispatch(actions.receivedQrCode(res.data.qr)))
 );
-
+// @ts-ignore
 export const setHideAnnouncement = createAsyncThunk(`${sliceName}/setHideAnnouncement`, ({ shouldHide, userId }, { dispatch, getState }) => {
   const currentUserId = userId || getCurrentUser(getState()).id;
+  // @ts-ignore
   const hash = getState().app.hostedAnnouncement ? hashString(getState().app.hostedAnnouncement) : '';
   const announceCookie = cookies.get(`${currentUserId}${hash}`);
   if (shouldHide || (hash.length && typeof announceCookie !== 'undefined')) {
     cookies.set(`${currentUserId}${hash}`, true, { maxAge: 604800 });
+    // @ts-ignore
     return Promise.resolve(dispatch(setAnnouncement()));
   }
   return Promise.resolve();
@@ -737,46 +795,41 @@ export const getTokens = createAsyncThunk(`${sliceName}/getTokens`, (_, { dispat
 );
 
 const ONE_YEAR = 31536000;
-
+// @ts-ignore
 export const generateToken = createAsyncThunk(`${sliceName}/generateToken`, ({ expiresIn = ONE_YEAR, name }, { dispatch }) =>
   GeneralApi.post(`${useradmApiUrl}/settings/tokens`, { name, expires_in: expiresIn })
     .then(({ data: token }) => Promise.all([dispatch(getTokens()), token]))
+    // @ts-ignore
     .catch(err => commonErrorHandler(err, 'There was an error creating the token:', dispatch))
 );
 
 export const revokeToken = createAsyncThunk(`${sliceName}/revokeToken`, (token, { dispatch }) =>
+  // @ts-ignore
   GeneralApi.delete(`${useradmApiUrl}/settings/tokens/${token.id}`).then(() => Promise.resolve(dispatch(getTokens())))
 );
-
+// @ts-ignore
 export const setTooltipReadState = createAsyncThunk(`${sliceName}/setTooltipReadState`, ({ persist, ...remainder }, { dispatch }) => {
   let tasks = [dispatch(actions.setTooltipState(remainder))];
   if (persist) {
+    // @ts-ignore
     tasks.push(dispatch(saveUserSettings()));
   }
   return Promise.all(tasks);
 });
-
-export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelptips`, ({ readState = READ_STATES.read, tooltips }, { dispatch }) => {
-  const updatedTips = tooltips.reduce((accu, id) => ({ ...accu, [id]: { readState } }), {});
+// @ts-ignore
+export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelptips`, (readState = READ_STATES.read, { dispatch }) => {
+  const updatedTips = Object.keys(HELPTOOLTIPS).reduce((accu, id) => ({ ...accu, [id]: { readState } }), {});
   return Promise.resolve(dispatch(actions.setTooltipsState(updatedTips))).then(() => dispatch(saveUserSettings()));
 });
-
-interface SubmitFeedbackPayload {
-  satisfaction: string;
-  feedback: string;
-  meta?: Record<string, unknown>;
-}
-
-export const submitFeedback = createAsyncThunk<SubmitFeedbackPayload, SubmitFeedbackPayload>(
-  `${sliceName}/submitFeedback`,
-  ({ satisfaction, feedback, ...meta }, { dispatch }) => {
-    return GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
-      subject: 'feedback submission',
-      body: JSON.stringify({ feedback, satisfaction, meta })
-    }).then(() => {
-      const today = new Date();
-      dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
-      setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
-    });
-  }
+// @ts-ignore
+export const submitFeedback = createAsyncThunk(`${sliceName}/submitFeedback`, ({ satisfaction, feedback, ...meta }, { dispatch }) =>
+  GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
+    subject: 'feedback submission',
+    body: JSON.stringify({ feedback, satisfaction, meta })
+  }).then(() => {
+    const today = new Date();
+    // @ts-ignore
+    dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
+    setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
+  })
 );

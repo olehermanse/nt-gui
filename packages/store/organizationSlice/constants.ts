@@ -12,8 +12,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 // @ts-nocheck
-import { Integration } from '@northern.tech/store/api/types/MenderTypes';
 import { EXTERNAL_PROVIDER, apiUrl, useradmApiUrl } from '@northern.tech/store/constants';
+
+import { Integration } from '../api/types/Integration';
 
 export const auditLogsApiUrl = `${apiUrl.v1}/auditlogs`;
 export const tenantadmApiUrlv1 = `${apiUrl.v1}/tenantadm`;
