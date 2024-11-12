@@ -14,6 +14,7 @@
 // @ts-nocheck
 import storeActions from '@northern.tech/store/actions';
 import Api from '@northern.tech/store/api/general-api';
+import { Tenant } from '@northern.tech/store/api/types/MenderTypes';
 import {
   DEVICE_LIST_DEFAULTS,
   SORTING_OPTIONS,
@@ -34,7 +35,6 @@ import hashString from 'md5';
 import Cookies from 'universal-cookie';
 
 import { actions, sliceName } from '.';
-import { Tenant } from '../../components/tenants/types';
 import { SSO_TYPES, auditLogsApiUrl, ssoIdpApiUrlv1, tenantadmApiUrlv1, tenantadmApiUrlv2 } from './constants';
 import { getAuditlogState, getOrganization } from './selectors';
 
@@ -231,7 +231,9 @@ export const editTenantDeviceLimit = createAsyncThunk(`${sliceName}/editDeviceLi
 export const removeTenant = createAsyncThunk(`${sliceName}/editDeviceLimit`, ({ id }: { id: string }, { dispatch }) => {
   return Api.post(`${tenantadmApiUrlv2}/tenants/${id}/remove/start`)
     .catch(err => commonErrorHandler(err, `There was an error removing the tenant`, dispatch))
-    .then(() => Promise.all([Promise.resolve(dispatch(setSnackbar('Device Limit was changed successfully'))), dispatch(getTenants()), dispatch(getUserOrganization())]));
+    .then(() =>
+      Promise.all([Promise.resolve(dispatch(setSnackbar('Device Limit was changed successfully'))), dispatch(getTenants()), dispatch(getUserOrganization())])
+    );
 });
 export const getUserOrganization = createAsyncThunk(`${sliceName}/getUserOrganization`, (_, { dispatch, getState }) => {
   return Api.get(`${tenantadmApiUrlv1}/user/tenant`).then(res => {

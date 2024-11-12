@@ -31,3 +31,23 @@ export const onboardingSteps = {
   DEPLOYMENTS_PAST_COMPLETED_FAILURE: 'deployments-past-completed-failure',
   ONBOARDING_CANCELED: 'onboarding-canceled'
 };
+
+export const orderedOnboardingSteps = [
+  onboardingSteps.DASHBOARD_ONBOARDING_START,
+  onboardingSteps.DEVICES_PENDING_ONBOARDING_START,
+  onboardingSteps.DEVICES_DELAYED_ONBOARDING,
+  onboardingSteps.DEVICES_PENDING_ONBOARDING,
+  onboardingSteps.DEVICES_PENDING_ACCEPTING_ONBOARDING,
+  onboardingSteps.DASHBOARD_ONBOARDING_PENDINGS,
+  onboardingSteps.DEVICES_ACCEPTED_ONBOARDING,
+  onboardingSteps.DEVICES_DEPLOY_RELEASE_ONBOARDING,
+  onboardingSteps.SCHEDULING_ALL_DEVICES_SELECTION,
+  onboardingSteps.SCHEDULING_GROUP_SELECTION,
+  onboardingSteps.SCHEDULING_ARTIFACT_SELECTION,
+  onboardingSteps.SCHEDULING_RELEASE_TO_DEVICES,
+  onboardingSteps.DEPLOYMENTS_INPROGRESS,
+  onboardingSteps.DEPLOYMENTS_PAST,
+  onboardingSteps.DEPLOYMENTS_PAST_COMPLETED,
+  onboardingSteps.DEPLOYMENTS_PAST_COMPLETED_FAILURE,
+  onboardingSteps.ONBOARDING_CANCELED
+];

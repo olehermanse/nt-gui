@@ -2,10 +2,6 @@
   "extends": "@northern.tech/typescript-config/react-app.json",
   "exclude": ["dist", "build", "node_modules", "**/*.test.js"],
   "compilerOptions": {
-  
-      "skipLibCheck": true,
-      "noEmitOnError": false,
- 
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {

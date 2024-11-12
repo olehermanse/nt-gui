@@ -817,19 +817,29 @@ export const setTooltipReadState = createAsyncThunk(`${sliceName}/setTooltipRead
   return Promise.all(tasks);
 });
 // @ts-ignore
-export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelptips`, (readState = READ_STATES.read, { dispatch }) => {
-  const updatedTips = Object.keys(HELPTOOLTIPS).reduce((accu, id) => ({ ...accu, [id]: { readState } }), {});
+export const setAllTooltipsReadState = createAsyncThunk(`${sliceName}/toggleHelptips`, ({ readState = READ_STATES.read, tooltips }, { dispatch }) => {
+  const updatedTips = tooltips.reduce((accu, id) => ({ ...accu, [id]: { readState } }), {});
   return Promise.resolve(dispatch(actions.setTooltipsState(updatedTips))).then(() => dispatch(saveUserSettings()));
 });
-// @ts-ignore
-export const submitFeedback = createAsyncThunk(`${sliceName}/submitFeedback`, ({ satisfaction, feedback, ...meta }, { dispatch }) =>
-  GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
-    subject: 'feedback submission',
-    body: JSON.stringify({ feedback, satisfaction, meta })
-  }).then(() => {
-    const today = new Date();
-    // @ts-ignore
-    dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
-    setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
-  })
+
+interface SubmitFeedbackPayload {
+  satisfaction: string;
+  feedback: string;
+  meta?: Record<string, unknown>;
+}
+
+export const submitFeedback = createAsyncThunk<SubmitFeedbackPayload, SubmitFeedbackPayload>(
+  `${sliceName}/submitFeedback`,
+  // @ts-ignore
+  ({ satisfaction, feedback, ...meta }, { dispatch }) => {
+    return GeneralApi.post(`${tenantadmApiUrlv2}/contact/support`, {
+      subject: 'feedback submission',
+      body: JSON.stringify({ feedback, satisfaction, meta })
+    }).then(() => {
+      const today = new Date();
+      // @ts-ignore
+      dispatch(saveUserSettings({ feedbackCollectedAt: today.toISOString().split('T')[0] }));
+      setTimeout(() => dispatch(actions.setShowFeedbackDialog(false)), TIMEOUTS.threeSeconds);
+    });
+  }
 );

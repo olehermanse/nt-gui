@@ -12,7 +12,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 // @ts-nocheck
-import { DEVICE_STATES, onboardingSteps as onboardingStepNames } from '@northern.tech/store/constants';
+import { DEVICE_STATES, onboardingSteps as onboardingStepNames, orderedOnboardingSteps as onboardingSteps } from '@northern.tech/store/constants';
 import { getOnboardingState as getCurrentOnboardingState, getUserCapabilities } from '@northern.tech/store/selectors';
 import { saveUserSettings } from '@northern.tech/store/thunks';
 import { getDemoDeviceAddress } from '@northern.tech/utils/helpers';
