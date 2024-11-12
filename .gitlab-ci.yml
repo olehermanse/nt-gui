@@ -132,7 +132,7 @@ changelog:
       echo "DEBUG - remove temp file";
       rm tmp_pr_body.md;
       cd ../..;
-      echo "DEBUG - i'm inside $PWD folder"
+      echo "DEBUG - i'm inside $PWD folder";
       done
   after_script:
     - git remote remove github-${CI_JOB_ID}
