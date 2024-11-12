@@ -91,7 +91,7 @@ changelog:
       if [[ "${RELEASE_PLEASE_PR}" != "notfound" ]]; then
         gh pr checkout --force $RELEASE_PLEASE_PR
         wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped
-        git cliff --unreleased --bump --output CHANGELOG.md --github-repo ${GITHUB_REPO_URL}
+        git cliff --bump --output CHANGELOG.md --github-repo ${GITHUB_REPO_URL}
         git add CHANGELOG.md
         git commit --amend -s --no-edit
         git push github-${CI_JOB_ID} --force
@@ -116,8 +116,7 @@ changelog:
         gh pr checkout --force $RELEASE_PLEASE_PR;
         cd $component;
           wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped;
-          git cliff --unreleased --bump --output ./CHANGELOG.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL} --tag-pattern "${component_name}.*";
-          echo "DEBUG - list current CHANGELOG";
+          git cliff --bump --output ./CHANGELOG.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL} --tag-pattern "${component_name}.*";
           cat CHANGELOG.md;
           git add CHANGELOG.md;
           git commit --amend -s --no-edit;
