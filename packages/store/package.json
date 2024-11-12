@@ -10,8 +10,27 @@
     "type": "git",
     "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
   },
+  "files": [
+    "actions.ts",
+    "auth.ts",
+    "commonConstants.tsx",
+    "commonSelectors.ts",
+    "constants.ts",
+    "selectors.ts",
+    "store.ts",
+    "storehooks.ts",
+    "thunks.ts",
+    "utils.ts"
+  ],
+  "exports": {
+    "./*": {
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsup store.ts",
+    "build": "tsup",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
@@ -34,6 +53,8 @@
     "dayjs": "^1.x",
     "jwt-decode": "^4.x",
     "md5": "^2.x",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
     "react": "^18.x",
     "react-redux": "^9.x",
     "react-router-dom": "^6.x",
