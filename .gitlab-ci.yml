@@ -114,17 +114,25 @@ changelog:
     - for component in $(jq -r 'keys | del(.[] | select(. == "."))[]' .release-please-manifest.json); do
       component_name=$(echo "$component" | cut -d'/' -f2);
       RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" | grep ${component_name} | awk '{print $1}');
+      echo "DEBUG - component $component, component_name $component_name, RELEASE_PLEASE_PR $RELEASE_PLEASE_PR";
       gh pr checkout --force $RELEASE_PLEASE_PR;
       cd $component;
       wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped;
-      git cliff --unreleased --bump --output ./CHANGELOG.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL};
+      git cliff --unreleased --bump --output ./CHANGELOG.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL} --tag-pattern "${component_name}.*";
+      echo "DEBUG - list current CHANGELOG";
+      cat CHANGELOG.md;
       git add CHANGELOG.md;
       git commit --amend -s --no-edit;
       git push github-${CI_JOB_ID} --force;
-      git cliff --unreleased --bump -o tmp_pr_body.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL};
+      echo "DEBUG - pushed to github";
+      echo "DEBUG - running git cliff to update the pr body";
+      git cliff --unreleased --bump -o tmp_pr_body.md --repository "../../" --include-path "${component}/**/*" --github-repo ${GITHUB_REPO_URL} --tag-pattern "${component_name}.*";
+      echo "DEBUG - edit the pr body";
       gh pr edit $RELEASE_PLEASE_PR --body-file tmp_pr_body.md;
+      echo "DEBUG - remove temp file";
       rm tmp_pr_body.md;
       cd ../..;
+      echo "DEBUG - i'm inside $PWD folder"
       done
   after_script:
     - git remote remove github-${CI_JOB_ID}
