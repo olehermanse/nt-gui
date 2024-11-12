@@ -60,6 +60,7 @@ build:
 
 changelog:
   stage: changelog
+  image: "registry.gitlab.com/northern.tech/mender/mender-test-containers:release-please-v1-master"
   variables:
     GIT_DEPTH: 0 # Always get the full history
     GIT_STRATEGY: clone
@@ -67,19 +68,9 @@ changelog:
     - if: $CI_COMMIT_BRANCH =~ "/^\d+\.\d+\.x$/"
     - if: $CI_COMMIT_BRANCH == $DEFAULT_BRANCH
   before_script:
-    # install release-please
-    - npm install -g release-please
-    # install github-cli
-    - mkdir -p -m 755 /etc/apt/keyrings
-    - wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
-    - chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
-    - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-    - apt update
-    - apt install gh jq -y
     # Setting up git
     - git config --global user.email "${GITHUB_USER_EMAIL}"
     - git config --global user.name "${GITHUB_USER_NAME}"
-    - npm install -g git-cliff
     # GITHUB_TOKEN for Github cli authentication
     - export GITHUB_TOKEN=${GITHUB_CLI_TOKEN}
     # getting the centralized git cliff config
@@ -148,6 +139,7 @@ changelog:
 
 release:github:
   stage: .post
+  image: "registry.gitlab.com/northern.tech/mender/mender-test-containers:release-please-v1-master"
   rules:
     - if: $CI_COMMIT_BRANCH =~ "/^\d+\.\d+\.x$/" # Release from maintenance branches
       when: manual
@@ -156,7 +148,6 @@ release:github:
   needs:
     - job: changelog
   script:
-    - npm install -g release-please
     - npm ci
     - release-please github-release
       --token=${GITHUB_BOT_TOKEN_REPO_FULL}
