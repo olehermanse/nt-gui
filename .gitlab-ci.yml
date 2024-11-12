@@ -115,7 +115,12 @@ changelog:
       for component in $(jq -r 'keys[] | select(. != ".")' .release-please-manifest.json); do
         echo "DEBUG - component $component starting";
         component_name=$(echo "$component" | cut -d'/' -f2);
+        echo "DEBUG - component_name- $component_name";
         RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" | grep ${component_name} | awk '{print $1}');
+        if [[ -z "$RELEASE_PLEASE_PR" ]]; then
+          echo "DEBUG - no PR found for $component_name";
+          continue;
+        fi
         echo "DEBUG - component $component, component_name $component_name, RELEASE_PLEASE_PR $RELEASE_PLEASE_PR";
         gh pr checkout --force $RELEASE_PLEASE_PR;
         cd $component;
