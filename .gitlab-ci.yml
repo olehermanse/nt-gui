@@ -112,9 +112,7 @@ changelog:
       fi
     # deal with the component's changelogs
     - |
-      RELEASE_COMPONENTS=$(jq -r 'keys | del(.[] | select(. == "."))[]' .release-please-manifest.json)
-      echo "echo $RELEASE_COMPONENTS"
-      for component in $RELEASE_COMPONENTS; do
+      for component in $(jq -r 'keys[] | select(. != ".")' .release-please-manifest.json); do
         echo "DEBUG - component $component starting";
         component_name=$(echo "$component" | cut -d'/' -f2);
         RELEASE_PLEASE_PR=$(gh pr list --author "${GITHUB_USER_NAME}" --head "release-please--branches--${CI_COMMIT_REF_NAME}" | grep ${component_name} | awk '{print $1}');
