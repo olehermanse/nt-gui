@@ -91,11 +91,11 @@ changelog:
       if [[ "${RELEASE_PLEASE_PR}" != "notfound" ]]; then
         gh pr checkout --force $RELEASE_PLEASE_PR
         wget --output-document cliff.toml https://raw.githubusercontent.com/mendersoftware/mendertesting/master/utils/cliff.toml.scoped
-        git cliff --bump --output CHANGELOG.md --github-repo ${GITHUB_REPO_URL}
+        git cliff --bump --output CHANGELOG.md --github-repo ${GITHUB_REPO_URL} --use-branch-tags
         git add CHANGELOG.md
         git commit --amend -s --no-edit
         git push github-${CI_JOB_ID} --force
-        git cliff --unreleased --bump -o tmp_pr_body.md --github-repo ${GITHUB_REPO_URL}
+        git cliff --unreleased --bump -o tmp_pr_body.md --github-repo ${GITHUB_REPO_URL} --use-branch-tags
         gh pr edit $RELEASE_PLEASE_PR --body-file tmp_pr_body.md
         rm tmp_pr_body.md
       else
