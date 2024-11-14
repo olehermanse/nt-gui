@@ -24,9 +24,9 @@
   ],
   "exports": {
     "./*": {
+      "types": "./dist/*.js",
       "import": "./dist/*.mjs",
-      "require": "./dist/*.js",
-      "types": "./dist/*.js"
+      "require": "./dist/*.js"
     }
   },
   "devDependencies": {
