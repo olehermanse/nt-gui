@@ -79,6 +79,7 @@ export const useLocationParams = (key, extras) => {
       sort,
       ...processors[key].parse(params, extendedExtras)
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(extras), key, location.search, location.pathname, searchParams.toString()]);
 
   let setValue = useCallback(
@@ -87,6 +88,7 @@ export const useLocationParams = (key, extras) => {
       const searchQuery = [processors.common.format(newValue.pageState, extras), processors[key].format(newValue, extras)].filter(i => i).join('&');
       navigate({ pathname, replace: true, search: `?${searchQuery}`, ...options });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [JSON.stringify(extras), key]
   );
 
