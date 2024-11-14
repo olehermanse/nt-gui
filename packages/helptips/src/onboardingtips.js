@@ -21,7 +21,7 @@ import storeActions from '@northern.tech/store/actions';
 import { ALL_DEVICES, onboardingSteps } from '@northern.tech/store/constants';
 import { advanceOnboarding } from '@northern.tech/store/thunks';
 
-import BaseOnboardingTip, { BaseOnboardingTooltip } from './baseonboardingtip';
+import { BaseOnboardingTip, BaseOnboardingTooltip } from './baseonboardingtip';
 
 const { setShowConnectingDialog, setShowDismissOnboardingTipsDialog } = storeActions;
 
