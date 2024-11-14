@@ -41,6 +41,7 @@ export const DEVICE_MESSAGE_TYPES = {
 
 // we can't include the dismiss state with the rest since this would include dismissed devices in several queries
 export const DEVICE_DISMISSAL_STATE = 'dismiss';
+export const ALL_DEVICE_STATES = 'any';
 export const DEVICE_STATES = {
   accepted: 'accepted',
   pending: 'pending',

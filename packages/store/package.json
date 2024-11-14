@@ -10,25 +10,21 @@
     "type": "git",
     "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
   },
-  "files": [
-    "actions.ts",
-    "auth.ts",
-    "commonConstants.tsx",
-    "commonSelectors.ts",
-    "constants.ts",
-    "selectors.ts",
-    "store.ts",
-    "storehooks.ts",
-    "thunks.ts",
-    "utils.ts"
-  ],
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
     "./*": {
+      "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
-      "require": "./dist/*.js",
-      "types": "./dist/*.d.ts"
+      "require": "./dist/*.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "lint": "eslint . --ext .js,.ts,.tsx",
@@ -46,6 +42,8 @@
     "@northern.tech/utils": "*"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.x",
+    "@emotion/styled": "^11.x",
     "@mdi/js": "^7.x",
     "@mui/icons-material": "^6.x",
     "@reduxjs/toolkit": "^2.x",
@@ -53,8 +51,6 @@
     "dayjs": "^1.x",
     "jwt-decode": "^4.x",
     "md5": "^2.x",
-    "@emotion/react": "^11.x",
-    "@emotion/styled": "^11.x",
     "react": "^18.x",
     "react-redux": "^9.x",
     "react-router-dom": "^6.x",
