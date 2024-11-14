@@ -15,7 +15,13 @@
     "packages/common": {
       "release-type": "node"
     },
+    "packages/common-ui": {
+      "release-type": "node"
+    },
     "packages/eslint-config": {
+      "release-type": "node"
+    },
+    "packages/helptips": {
       "release-type": "node"
     },
     "packages/prettier-config": {
