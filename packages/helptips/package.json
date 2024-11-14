@@ -23,6 +23,11 @@
     "src/onboardingtips.js"
   ],
   "exports": {
+    ".": {
+      "types": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
     "./*": {
       "types": "./dist/*.js",
       "import": "./dist/*.mjs",

@@ -17,6 +17,31 @@
     "pre-publish": "npm publish --tag next"
   },
   "exports": {
+    ".": {
+      "types": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./forms": {
+      "types": "./dist/forms/index.js",
+      "import": "./dist/forms/index.mjs",
+      "require": "./dist/forms/index.js"
+    },
+    "./forms/*": {
+      "types": "./dist/forms/*.js",
+      "import": "./dist/forms/*.mjs",
+      "require": "./dist/forms/*.js"
+    },
+    "./dialogs": {
+      "types": "./dist/dialogs/index.js",
+      "import": "./dist/dialogs/index.mjs",
+      "require": "./dist/dialogs/index.js"
+    },
+    "./dialogs/*": {
+      "types": "./dist/dialogs/*.js",
+      "import": "./dist/dialogs/*.mjs",
+      "require": "./dist/dialogs/*.js"
+    },
     "./*": {
       "types": "./dist/*.js",
       "import": "./dist/*.mjs",
