@@ -1,6 +1,6 @@
 {
   ".": "0.1.1",
-  "packages/common-ui": "0.0.1",
+  "packages/common-ui": "0.1.0",
   "packages/common": "0.1.0",
   "packages/eslint-config": "0.1.1",
   "packages/helptips": "0.0.1",
