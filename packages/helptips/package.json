@@ -16,24 +16,21 @@
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
   },
-  "files": [
-    "src/baseonboardingtip.js",
-    "src/helptooltips.js",
-    "src/onboardingcompletetip.js",
-    "src/onboardingtips.js"
-  ],
   "exports": {
     ".": {
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./*": {
-      "types": "./dist/*.js",
+      "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
       "require": "./dist/*.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@northern.tech/eslint-config": "*",
     "@northern.tech/typescript-config": "*",

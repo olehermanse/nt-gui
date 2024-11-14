@@ -18,36 +18,39 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.js",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./forms": {
-      "types": "./dist/forms/index.js",
+      "types": "./dist/forms/index.d.ts",
       "import": "./dist/forms/index.mjs",
       "require": "./dist/forms/index.js"
     },
     "./forms/*": {
-      "types": "./dist/forms/*.js",
+      "types": "./dist/forms/*.d.ts",
       "import": "./dist/forms/*.mjs",
       "require": "./dist/forms/*.js"
     },
     "./dialogs": {
-      "types": "./dist/dialogs/index.js",
+      "types": "./dist/dialogs/index.d.ts",
       "import": "./dist/dialogs/index.mjs",
       "require": "./dist/dialogs/index.js"
     },
     "./dialogs/*": {
-      "types": "./dist/dialogs/*.js",
+      "types": "./dist/dialogs/*.d.ts",
       "import": "./dist/dialogs/*.mjs",
       "require": "./dist/dialogs/*.js"
     },
     "./*": {
-      "types": "./dist/*.js",
+      "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
       "require": "./dist/*.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@northern.tech/eslint-config": "*",
     "@northern.tech/typescript-config": "*",
