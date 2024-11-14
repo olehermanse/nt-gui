@@ -14,9 +14,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ConfigurationObject from '@northern.tech/common-ui/configurationobject';
-import DocsLink from '@northern.tech/common-ui/docslink';
-import { HelpTooltip } from '@northern.tech/common-ui/mendertooltip';
+import { ConfigurationObject, DocsLink, HelpTooltip, LogDialog } from '@northern.tech/common-ui';
 import storeActions from '@northern.tech/store/actions';
 import { READ_STATES, yes } from '@northern.tech/store/constants';
 import { getDeviceById, getFeatures, getTooltipsState } from '@northern.tech/store/selectors';
@@ -26,6 +24,7 @@ const { setSnackbar } = storeActions;
 
 const AuthExplainButton = () => (
   <>
+    <LogDialog />
     <h3>Device authorization status</h3>
     <p>
       Each device sends an authentication request containing its identity attributes and its current public key. You can accept, reject or dismiss these
