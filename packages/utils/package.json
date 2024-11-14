@@ -10,16 +10,20 @@
     "type": "git",
     "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
+    }
+  },
   "files": [
-    "debouncehook.js",
-    "deploymentdevicehook.js",
-    "helpers.js",
-    "liststatehook.js",
-    "locationutils.js",
-    "resizehook.js",
-    "retrytimer.js",
-    "sockethook.js",
-    "tracking.js"
+    "dist"
   ],
   "scripts": {
     "build": "tsup",

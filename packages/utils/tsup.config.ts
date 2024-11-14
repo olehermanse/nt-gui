@@ -1,12 +1,13 @@
 import { defineConfig } from 'tsup';
 
-import { files, peerDependencies } from './package.json';
+import { peerDependencies } from './package.json';
 
 export default defineConfig(options => ({
-  entry: files,
   format: ['cjs', 'esm'],
   dts: true,
+  entry: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.test.{js,jsx,ts,tsx}'],
   sourcemap: true,
+  loader: { '.js': 'jsx' },
   external: [...Object.keys(peerDependencies)],
   ...options
 }));
