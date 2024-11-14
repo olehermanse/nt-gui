@@ -40,9 +40,9 @@ import { makeStyles } from 'tss-react/mui';
 
 import actions from '@northern.tech/store/actions';
 import { TIMEOUTS } from '@northern.tech/store/constants';
+import { AppDispatch } from '@northern.tech/store/store';
 import { submitFeedback } from '@northern.tech/store/thunks';
 import { isDarkMode } from '@northern.tech/store/utils';
-import {AppDispatch} from "@northern.tech/store/store";
 
 const { setShowFeedbackDialog } = actions;
 
