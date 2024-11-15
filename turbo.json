@@ -11,7 +11,23 @@
         "storybook-static/**"
       ]
     },
+    "@northern.tech/common-ui#build": {
+      "dependsOn": [
+        "@northern.tech/store#build"
+      ]
+    },
+    "@northern.tech/store#build": {
+      "dependsOn": [
+        "@northern.tech/utils#build"
+      ]
+    },
     "lint": {
+      "dependsOn": [
+        "build",
+        "@northern.tech/store#build",
+        "@northern.tech/helptips#build",
+        "@northern.tech/common-ui#build"
+      ],
       "cache": true
     },
     "dev": {
