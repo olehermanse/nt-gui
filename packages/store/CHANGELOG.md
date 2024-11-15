@@ -1,4 +1,11 @@
 ---
+## @northern.tech/store-0.2.1 - 2024-11-15
+
+
+### Bug Fixes
+
+
+
 ## @northern.tech/store-0.2.0 - 2024-11-15
 
 
