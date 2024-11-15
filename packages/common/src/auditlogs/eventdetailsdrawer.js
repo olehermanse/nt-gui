@@ -13,17 +13,17 @@
 //    limitations under the License.
 import React from 'react';
 
-import { HelpOutline as HelpOutlineIcon } from '@mui/icons-material';
 import { Divider, Drawer } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
+import { DrawerTitle } from '@northern.tech/common-ui/DrawerTitle';
 import { Code } from '@northern.tech/common-ui/copy-code';
 
 import DeviceConfiguration from './eventdetails/deviceconfiguration';
 import FileTransfer from './eventdetails/filetransfer';
 import PortForward from './eventdetails/portforward';
 import TerminalSession from './eventdetails/terminalsession';
-import UserChange from './eventdetails/userchange';
+import { UserChange } from './eventdetails/userchange';
 
 const FallbackComponent = ({ item }) => {
   let content = '';
@@ -37,7 +37,8 @@ const FallbackComponent = ({ item }) => {
 
 const changeTypes = {
   user: 'user',
-  device: 'device'
+  device: 'device',
+  tenant: 'tenant'
 };
 
 const configChangeDescriptor = {
@@ -60,6 +61,8 @@ const mapChangeToContent = item => {
     content = { title: `Device configuration ${configChangeDescriptor[item.action] || ''}`, content: DeviceConfiguration };
   } else if (type === changeTypes.device) {
     content = { title: 'Device change', content: FallbackComponent };
+  } else if (type === changeTypes.tenant) {
+    content = { title: `${item.action}d tenant`, content: UserChange };
   }
   return content;
 };
@@ -69,10 +72,7 @@ export const EventDetailsDrawer = ({ eventItem = {}, onClose, open }) => {
   const { title, content: Component } = mapChangeToContent(eventItem);
   return (
     <Drawer className={`${open ? 'fadeIn' : 'fadeOut'}`} anchor="right" open={open} onClose={onClose}>
-      <div className="flexbox space-between margin-top-small margin-bottom">
-        <b className="capitalized">{title}</b>
-        <HelpOutlineIcon />
-      </div>
+      <DrawerTitle title={<div className="capitalized-start">{title}</div>} onClose={onClose} />
       <Divider />
       <Component item={eventItem} onClose={onClose} />
       <Divider light style={{ marginTop: theme.spacing(2) }} />
