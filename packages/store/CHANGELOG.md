@@ -1,4 +1,11 @@
 ---
+## @northern.tech/store-0.2.0 - 2024-11-15
+
+
+### Features
+
+
+
 ## @northern.tech/store-0.1.3 - 2024-11-15
 
 
