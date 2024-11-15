@@ -10,8 +10,18 @@
     "type": "git",
     "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
   },
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsup store.ts",
+    "build": "tsup && cp -r src/api/types dist/api/types",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
@@ -27,6 +37,8 @@
     "@northern.tech/utils": "*"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.x",
+    "@emotion/styled": "^11.x",
     "@mdi/js": "^7.x",
     "@mui/icons-material": "^6.x",
     "@reduxjs/toolkit": "^2.x",
