@@ -5,13 +5,6 @@
   "separate-pull-requests": true,
   "signoff": "mender-test-bot <mender@northern.tech>",
   "packages": {
-    ".": {
-      "changelog-path": "CHANGELOG.md",
-      "bump-minor-pre-major": false,
-      "bump-patch-for-minor-pre-major": false,
-      "draft": false,
-      "prerelease": false
-    },
     "packages/common": {
       "release-type": "node"
     },
