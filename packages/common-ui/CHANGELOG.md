@@ -1,4 +1,11 @@
 ---
+## @northern.tech/common-ui-0.1.2 - 2024-11-15
+
+
+### Bug Fixes
+
+
+
 ## @northern.tech/common-ui-0.1.1 - 2024-11-14
 
 
