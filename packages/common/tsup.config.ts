@@ -7,6 +7,8 @@ export default defineConfig(options => ({
   format: ['cjs', 'esm'],
   dts: true,
   sourcemap: true,
+  target: 'esnext',
+  platform: 'browser',
   external: [...Object.keys(peerDependencies)],
   ...options
 }));
