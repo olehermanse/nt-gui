@@ -11,15 +11,15 @@
     "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
   },
   "exports": {
-    "./button": {
-      "types": "./src/button.tsx",
-      "import": "./dist/button.mjs",
-      "require": "./dist/button.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "./auditlogs": {
-      "types": "./dist/auditlogs/auditlogs.d.ts",
-      "import": "./dist/auditlogs/auditlogs.mjs",
-      "require": "./dist/auditlogs/auditlogs.js"
+    "./auditlogs/*": {
+      "types": "./dist/auditlogs/*.d.ts",
+      "import": "./dist/auditlogs/*.mjs",
+      "require": "./dist/auditlogs/*.js"
     }
   },
   "scripts": {
