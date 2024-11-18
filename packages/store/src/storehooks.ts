@@ -16,7 +16,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import dayjs from 'dayjs';
-import durationDayJs from 'dayjs/plugin/duration';
+import durationDayJs from 'dayjs/plugin/duration.js';
 import Cookies from 'universal-cookie';
 
 import storeActions from './actions';
