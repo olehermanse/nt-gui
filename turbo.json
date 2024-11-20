@@ -25,7 +25,6 @@
       "dependsOn": [
         "build",
         "@northern.tech/store#build",
-        "@northern.tech/helptips#build",
         "@northern.tech/common-ui#build"
       ],
       "cache": true

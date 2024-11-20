@@ -42,6 +42,14 @@
       "import": "./dist/dialogs/*.mjs",
       "require": "./dist/dialogs/*.js"
     },
+    "./helptips": {
+      "types": "./dist/helptips/index.d.ts",
+      "import": "./dist/helptips/index.js"
+    },
+    "./helptips/*": {
+      "types": "./dist/helptips/*.d.ts",
+      "import": "./dist/helptips/*.js"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
@@ -66,7 +74,6 @@
     "@mui/icons-material": "6.x",
     "@mui/material": "6.x",
     "@mui/x-date-pickers": "7.x",
-    "@northern.tech/helptips": "*",
     "@northern.tech/store": "*",
     "@northern.tech/utils": "*",
     "@xterm/addon-fit": "0.10.x",
