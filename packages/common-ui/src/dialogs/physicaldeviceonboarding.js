@@ -16,8 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { InfoOutlined as InfoIcon } from '@mui/icons-material';
-import { Autocomplete, TextField } from '@mui/material';
-import { createFilterOptions } from '@mui/material/useAutocomplete';
+import { Autocomplete, TextField, createFilterOptions } from '@mui/material';
 
 import { EXTERNAL_PROVIDER, onboardingSteps } from '@northern.tech/store/constants';
 import {
