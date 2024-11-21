@@ -1,12 +1,3 @@
-import { defineConfig } from 'tsup';
+import config from '@northern.tech/typescript-config/tsup-config.js';
 
-export default defineConfig(options => ({
-  format: ['esm'],
-  dts: true,
-  entry: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.test.{js,jsx,ts,tsx}'],
-  sourcemap: true,
-  skipNodeModulesBundle: true,
-  clean: true,
-  loader: { '.js': 'jsx' },
-  ...options
-}));
+export default config;

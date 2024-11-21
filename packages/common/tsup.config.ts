@@ -1,14 +1,3 @@
-import { defineConfig } from 'tsup';
+import config from '@northern.tech/typescript-config/tsup-config.js';
 
-import { peerDependencies } from './package.json';
-
-export default defineConfig(options => ({
-  format: ['cjs', 'esm'],
-  dts: true,
-  entry: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.test.{js,jsx,ts,tsx}'],
-  sourcemap: true,
-  target: 'esnext',
-  platform: 'node',
-  external: [...Object.keys(peerDependencies)],
-  ...options
-}));
+export default config;
