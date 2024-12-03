@@ -1,4 +1,4 @@
-// Copyright 2019 Northern.tech AS
+// Copyright 2024 Northern.tech AS
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -11,18 +11,16 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-import React from 'react';
+import { Code } from '@northern.tech/common-ui/copy-code';
 
-import { defaultState, undefineds } from '../../../../../tests/mockData';
-import { render } from '../../../../../tests/setupTests';
-import UserChange from './userchange';
+const FallbackComponent = ({ item }) => {
+  let content = '';
+  try {
+    content = JSON.stringify(item, null, 2);
+  } catch (error) {
+    content = `error parsing the logged event:\n${error}`;
+  }
+  return <Code style={{ whiteSpace: 'pre' }}>{content}</Code>;
+};
 
-describe('UserChange Component', () => {
-  it('renders correctly', async () => {
-    const { baseElement } = render(<UserChange item={defaultState.organization.auditlog.events[0]} />);
-
-    const view = baseElement.firstChild.firstChild;
-    expect(view).toMatchSnapshot();
-    expect(view).toEqual(expect.not.stringMatching(undefineds));
-  });
-});
+export default FallbackComponent;
