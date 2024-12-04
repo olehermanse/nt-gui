@@ -11,10 +11,15 @@
     "url": "git+https://github.com/NorthernTechHQ/nt-gui.git"
   },
   "exports": {
-    "./button": {
-      "types": "./src/button.tsx",
-      "import": "./dist/button.mjs",
-      "require": "./dist/button.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./auditlogs/*": {
+      "types": "./dist/auditlogs/*.d.ts",
+      "import": "./dist/auditlogs/*.mjs",
+      "require": "./dist/auditlogs/*.js"
     }
   },
   "scripts": {
@@ -34,6 +39,18 @@
     "typescript": "5.6.3"
   },
   "peerDependencies": {
-    "react": "^18.x"
+    "react": "^18.x",
+    "@northern.tech/common-ui": "*",
+    "@northern.tech/helptips": "*",
+    "@northern.tech/store": "*",
+    "@northern.tech/utils": "*",
+    "@mui/icons-material": "^6.x",
+    "@mui/material": "^6.x",
+    "tss-react": "^4.x",
+    "react-redux": "^9.x",
+    "react-router-dom": "^6.x",
+    "dayjs": "^1.x",
+    "msgpack5": "^6.x",
+    "universal-cookie": "^7.x"
   }
 }
