@@ -22,6 +22,9 @@
       "require": "./dist/auditlogs/*.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
