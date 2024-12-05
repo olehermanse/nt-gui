@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 import DetailsIndicator from '@northern.tech/common-ui/detailsindicator';
 import DeviceIdentityDisplay from '@northern.tech/common-ui/deviceidentity';
 import Time from '@northern.tech/common-ui/time';
-import { DEPLOYMENT_ROUTES, auditlogTypes, canAccess } from '@northern.tech/store/constants';
+import { AUDIT_LOGS_TYPES, DEPLOYMENT_ROUTES, canAccess } from '@northern.tech/store/constants';
 
 const ArtifactLink = ({ item }) => <Link to={`/releases/${item.object.artifact.name}`}>View artifact</Link>;
 const DeploymentLink = ({ item }) => <Link to={`${DEPLOYMENT_ROUTES.finished.route}?open=true&id=${item.object.id}`}>View deployment</Link>;
@@ -98,7 +98,7 @@ export const ActionDescriptor = (item, index) => (
 );
 export const TypeDescriptor = (item, index) => (
   <div className="capitalized" key={generateKey(item, index)}>
-    {auditlogTypes[item.object.type]?.title ?? item.object.type}
+    {AUDIT_LOGS_TYPES[item.object.type]?.title ?? item.object.type}
   </div>
 );
 export const ChangeDescriptor = (item, index) => {
