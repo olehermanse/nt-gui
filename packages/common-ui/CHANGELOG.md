@@ -1,4 +1,21 @@
 ---
+## @northern.tech/common-ui-0.2.0 - 2024-12-09
+
+
+### Features
+
+#### Common-ui
+
+
+- *(common-ui)* Made TimeframePicker component format and labels configurable
+
+ ([665a85f](https://github.com/NorthernTechHQ/nt-gui/commit/665a85f8ecbc0973d1c77f42e647a9a51511216b))  by @aleksandrychev
+
+
+
+
+
+
 ## @northern.tech/common-ui-0.1.2 - 2024-11-15
 
 
