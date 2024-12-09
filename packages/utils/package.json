@@ -13,18 +13,20 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./*": {
       "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup-node",
+    "build": "tsup",
     "lint": "eslint .",
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
@@ -41,10 +43,10 @@
     "msgpack5": "^6.x",
     "pluralize": "^8.x",
     "react": "^18.x",
+    "react-ga4": "^2.x",
     "react-redux": "^9.x",
     "react-router-dom": "^6.x",
     "universal-cookie": "^7.x",
-    "validator": "^13.x",
-    "react-ga4": "^2.x"
+    "validator": "^13.x"
   }
 }

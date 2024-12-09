@@ -21,35 +21,43 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./dialogs": {
       "types": "./dist/dialogs/index.d.ts",
-      "import": "./dist/dialogs/index.js"
+      "import": "./dist/dialogs/index.js",
+      "require": "./dist/dialogs/index.cjs"
     },
     "./dialogs/*": {
       "types": "./dist/dialogs/*.d.ts",
-      "import": "./dist/dialogs/*.js"
+      "import": "./dist/dialogs/*.js",
+      "require": "./dist/dialogs/*.cjs"
     },
     "./forms": {
       "types": "./dist/forms/index.d.ts",
-      "import": "./dist/forms/index.js"
+      "import": "./dist/forms/index.js",
+      "require": "./dist/forms/index.cjs"
     },
     "./forms/*": {
       "types": "./dist/forms/*.d.ts",
-      "import": "./dist/forms/*.js"
+      "import": "./dist/forms/*.js",
+      "require": "./dist/forms/*.cjs"
     },
     "./helptips": {
       "types": "./dist/helptips/index.d.ts",
-      "import": "./dist/helptips/index.js"
+      "import": "./dist/helptips/index.js",
+      "require": "./dist/helptips/index.cjs"
     },
     "./helptips/*": {
       "types": "./dist/helptips/*.d.ts",
-      "import": "./dist/helptips/*.js"
+      "import": "./dist/helptips/*.js",
+      "require": "./dist/helptips/*.cjs"
     },
     "./*": {
       "types": "./dist/*.d.ts",
-      "import": "./dist/*.js"
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs"
     }
   },
   "files": [
