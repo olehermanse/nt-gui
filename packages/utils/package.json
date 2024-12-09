@@ -13,31 +13,31 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     },
     "./*": {
       "types": "./dist/*.d.ts",
-      "import": "./dist/*.mjs",
-      "require": "./dist/*.js"
+      "import": "./dist/*.js"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup-node",
     "lint": "eslint .",
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
   },
+  "type": "module",
+  "sideEffects": false,
   "devDependencies": {
     "@northern.tech/eslint-config": "*",
     "@northern.tech/typescript-config": "*",
     "eslint": "^8.57.0",
     "tsup": "8.3.0"
   },
-  "peerDependencies": {
+  "dependencies": {
     "msgpack5": "^6.x",
     "pluralize": "^8.x",
     "react": "^18.x",

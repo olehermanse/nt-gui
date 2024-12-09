@@ -9,17 +9,20 @@
       "outputs": [
         "dist/**",
         "storybook-static/**"
-      ]
+      ],
+      "cache": false
     },
     "@northern.tech/common-ui#build": {
       "dependsOn": [
         "@northern.tech/store#build"
-      ]
+      ],
+      "cache": false
     },
     "@northern.tech/store#build": {
       "dependsOn": [
         "@northern.tech/utils#build"
-      ]
+      ],
+      "cache": false
     },
     "lint": {
       "dependsOn": [
