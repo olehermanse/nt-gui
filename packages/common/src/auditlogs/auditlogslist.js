@@ -53,7 +53,16 @@ const useStyles = makeStyles()(theme => ({
   }
 }));
 
-export const AuditLogsList = ({ items, onChangePage, onChangeRowsPerPage, onChangeSorting, selectionState, userCapabilities, auditLogColumns }) => {
+export const AuditLogsList = ({
+  items,
+  onChangePage,
+  onChangeRowsPerPage,
+  onChangeSorting,
+  selectionState,
+  userCapabilities,
+  auditLogColumns,
+  onIssueSelection
+}) => {
   const { page, perPage, sort = {}, total: count, isLoading } = selectionState;
   const { classes } = useStyles();
 
@@ -76,8 +85,15 @@ export const AuditLogsList = ({ items, onChangePage, onChangeRowsPerPage, onChan
         </div>
         <div className="auditlogs-list">
           {items.map(item => {
+            const allowsExpansion = onIssueSelection && (!!item.change || item.action.includes('terminal') || item.action.includes('portforward'));
             return (
-              <div className="auditlogs-list-item" key={`event-${item.time}`}>
+              <div
+                className={`auditlogs-list-item ${allowsExpansion ? 'clickable' : ''}`}
+                key={`event-${item.time}`}
+                onClick={() => {
+                  onIssueSelection ? onIssueSelection(allowsExpansion ? item : undefined) : null;
+                }}
+              >
                 {auditLogColumns.map((column, index) => column.render(item, index, userCapabilities))}
               </div>
             );

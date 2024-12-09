@@ -112,8 +112,8 @@ export const ChangeDetailsDescriptor = (item, index, userCapabilities) => {
 };
 export const TimeWrapper = (item, index) => <Time key={generateKey(item, index)} value={item.time} />;
 
-export const ViewDetails = (item, index, onIssueSelection = () => {}, allowsExpansion = true, ViewComponent = DetailsIndicator) => (
-  <div className={allowsExpansion ? 'clickable' : ''} key={generateKey(item, index)} onClick={() => allowsExpansion && onIssueSelection(item)}>
-    {allowsExpansion && <ViewComponent />}
+export const ViewDetails = ({ item, index, onIssueSelection = () => {}, ViewComponent = DetailsIndicator }) => (
+  <div className="clickable" key={generateKey(item, index)} onClick={() => onIssueSelection(item)}>
+    <ViewComponent />
   </div>
 );

@@ -226,6 +226,7 @@ export const AuditLogs = () => {
           onChangeRowsPerPage={newPerPage => onChangePagination(1, newPerPage)}
           onChangeSorting={onChangeSorting}
           selectionState={selectionState}
+          onIssueSelection={onIssueSelection}
           userCapabilities={userCapabilities}
           auditLogColumns={[
             { title: 'Performed by', sortable: false, render: UserDescriptor },
@@ -239,7 +240,7 @@ export const AuditLogs = () => {
               sortable: false,
               render: (item, index) => {
                 const allowsExpansion = !!item.change || item.action.includes('terminal') || item.action.includes('portforward');
-                return ViewDetails(item, index, onIssueSelection, allowsExpansion);
+                return allowsExpansion ? <ViewDetails item={item} index={index} onIssueSelection={onIssueSelection} /> : <div />;
               }
             }
           ]}
