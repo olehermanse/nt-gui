@@ -120,8 +120,8 @@
   "devDependencies": {
     "@northern.tech/eslint-config": "*",
     "@northern.tech/typescript-config": "*",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
     "eslint": "^8.57.0"
   },
   "dependencies": {
@@ -135,9 +135,9 @@
     "dayjs": "^1.x",
     "jwt-decode": "^4.x",
     "md5": "^2.x",
-    "react": "^18.x",
+    "react": "^19.x",
     "react-redux": "^9.x",
-    "react-router-dom": "^6.x",
+    "react-router-dom": "^7.x",
     "universal-cookie": "^7.x",
     "validator": "^13.x"
   }
