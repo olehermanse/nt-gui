@@ -1,5 +1,5 @@
 ---
-## @northern.tech/common-ui-0.2.0 - 2024-12-09
+## @northern.tech/common-ui-0.2.0 - 2024-12-10
 
 
 ### Features
@@ -10,6 +10,10 @@
 - *(common-ui)* Made TimeframePicker component format and labels configurable
 
  ([665a85f](https://github.com/NorthernTechHQ/nt-gui/commit/665a85f8ecbc0973d1c77f42e647a9a51511216b))  by @aleksandrychev
+
+- *(common-ui)* Added slotProps and fallbackValue props to the TimeframePicker component
+
+ ([32d346b](https://github.com/NorthernTechHQ/nt-gui/commit/32d346b4ec5a2570cceb889688056a20c7b33cdc))  by @aleksandrychev
 
 
 

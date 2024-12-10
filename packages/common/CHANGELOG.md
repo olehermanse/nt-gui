@@ -1,5 +1,25 @@
 ---
-## @northern.tech/common-0.2.1 - 2024-12-09
+## @northern.tech/common-ui-0.3.0 - 2024-12-10
+
+
+### Bug Fixes
+
+#### Common/auditlogs
+
+
+- *(common/auditlogs)* Fixed AUDIT_LOGS_TYPES import from store
+
+ ([d0b3285](https://github.com/NorthernTechHQ/nt-gui/commit/d0b3285abf359f226820fde8425ca053e8bd0785))  by @aleksandrychev
+
+
+
+
+
+### Features
+
+
+
+## @northern.tech/common-ui-0.2.1 - 2024-12-10
 
 
 ### Bug Fixes
