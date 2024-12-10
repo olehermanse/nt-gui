@@ -19,8 +19,8 @@
     "publish-packages-next": "turbo pre-publish --continue"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.x",
+    "react-dom": "^18.x"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.10",
