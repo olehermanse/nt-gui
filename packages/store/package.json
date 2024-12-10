@@ -110,7 +110,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup-node && cp -r src/api/types dist/api/",
+    "build": "tsup && cp -r src/api/types dist/api/",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "publish": "npm publish",
     "pre-publish": "npm publish --tag next"
@@ -120,9 +120,10 @@
   "devDependencies": {
     "@northern.tech/eslint-config": "*",
     "@northern.tech/typescript-config": "*",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
-    "eslint": "^8.57.0"
+    "@types/react": "^19.x",
+    "@types/react-dom": "^19.x",
+    "eslint": "^8.57.0",
+    "tsup": "8.3.5"
   },
   "dependencies": {
     "@emotion/react": "^11.x",
@@ -136,9 +137,10 @@
     "jwt-decode": "^4.x",
     "md5": "^2.x",
     "react": "^18.x",
+    "react-dom": "^18.x",
     "react-redux": "^9.x",
-    "react-router-dom": "^6.x",
-    "universal-cookie": "^7.x",
+    "react-router-dom": "^6.x || ^7.x",
+    "universal-cookie": "7.1.4",
     "validator": "^13.x"
   }
 }
