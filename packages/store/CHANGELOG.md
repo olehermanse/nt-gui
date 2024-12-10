@@ -1,4 +1,28 @@
 ---
+## @northern.tech/store-0.3.0 - 2024-12-10
+
+
+### Bug Fixes
+
+#### Store
+
+
+- *(store)* Fixed an issue that caused version information to be parsed wrong
+
+ ([bcba9da](https://github.com/NorthernTechHQ/nt-gui/commit/bcba9da4b8b29d27481f17383af66cf791b36bd8))  by @mzedel
+
+- *(store)* Reintroduced locations definition to allow build to pass
+
+ ([48da257](https://github.com/NorthernTechHQ/nt-gui/commit/48da2579d6941a020493521d83d7c41fb5c75f2b))  by @mzedel
+
+
+
+
+
+### Features
+
+
+
 ## @northern.tech/store-0.2.1 - 2024-11-15
 
 
