@@ -1,4 +1,24 @@
 ---
+## @northern.tech/common-ui-0.3.1 - 2024-12-10
+
+
+### Bug Fixes
+
+#### Common
+
+
+- *(common)* Fixed files export
+
+ ([bd56eff](https://github.com/NorthernTechHQ/nt-gui/commit/bd56eff96b4d7a4f708bf2fa04aad911462bed51))  by @aleksandrychev
+
+
+  use cjs for require and js for ESM
+
+
+
+
+
+
 ## @northern.tech/common-ui-0.3.0 - 2024-12-10
 
 
