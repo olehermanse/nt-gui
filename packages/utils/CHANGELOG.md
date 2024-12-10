@@ -1,4 +1,11 @@
 ---
+## @northern.tech/utils-0.2.0 - 2024-12-10
+
+
+### Features
+
+
+
 ## @northern.tech/utils-0.1.4 - 2024-11-15
 
 
