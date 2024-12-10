@@ -2,7 +2,7 @@ version: 2
 updates:
   - commit-message:
       prefix: chore
-    directory: /packages/common
+    directory: /
     open-pull-requests-limit: 20
     package-ecosystem: npm
     schedule:
@@ -10,102 +10,17 @@ updates:
     reviewers:
       - 'northerntechhq/frontend-dependabot-reviewers'
     groups:
-      development-dependencies-common:
+      development-dependencies:
         dependency-type: development
-      production-dependencies-common:
+      production-dependencies:
         dependency-type: production
         exclude-patterns:
           - '@emotion*'
           - '@mui*'
-      mui-common:
+      mui:
         patterns:
           - '@emotion*'
           - '@mui*'
-    ignore:
-      - dependency-name: '@northern.tech*'
-    versioning-strategy: increase
-  - commit-message:
-      prefix: chore
-    directory: /packages/eslint-config
-    open-pull-requests-limit: 10
-    package-ecosystem: npm
-    schedule:
-      interval: monthly
-    reviewers:
-      - 'northerntechhq/frontend-dependabot-reviewers'
-    groups:
-      development-dependencies-eslint-config:
-        dependency-type: development
-      production-dependencies-eslint-config:
-        dependency-type: production
-    ignore:
-      - dependency-name: '@northern.tech*'
-    versioning-strategy: increase
-  - commit-message:
-      prefix: chore
-    directory: /packages/prettier-config
-    open-pull-requests-limit: 10
-    package-ecosystem: npm
-    schedule:
-      interval: monthly
-    reviewers:
-      - 'northerntechhq/frontend-dependabot-reviewers'
-    groups:
-      development-dependencies-prettier-config:
-        dependency-type: development
-      production-dependencies-prettier-config:
-        dependency-type: production
-    ignore:
-      - dependency-name: '@northern.tech*'
-    versioning-strategy: increase
-  - commit-message:
-      prefix: chore
-    directory: /packages/store
-    open-pull-requests-limit: 10
-    package-ecosystem: npm
-    schedule:
-      interval: monthly
-    reviewers:
-      - 'northerntechhq/frontend-dependabot-reviewers'
-    groups:
-      development-dependencies-store:
-        dependency-type: development
-      production-dependencies-store:
-        dependency-type: production
-    ignore:
-      - dependency-name: '@northern.tech*'
-    versioning-strategy: increase
-  - commit-message:
-      prefix: chore
-    directory: /packages/typescript-config
-    open-pull-requests-limit: 10
-    package-ecosystem: npm
-    schedule:
-      interval: monthly
-    reviewers:
-      - 'northerntechhq/frontend-dependabot-reviewers'
-    groups:
-      development-dependencies-typescript-config:
-        dependency-type: development
-      production-dependencies-typescript-config:
-        dependency-type: production
-    ignore:
-      - dependency-name: '@northern.tech*'
-    versioning-strategy: increase
-  - commit-message:
-      prefix: chore
-    directory: /packages/utils
-    open-pull-requests-limit: 10
-    package-ecosystem: npm
-    schedule:
-      interval: monthly
-    reviewers:
-      - 'northerntechhq/frontend-dependabot-reviewers'
-    groups:
-      development-dependencies-utils:
-        dependency-type: development
-      production-dependencies-utils:
-        dependency-type: production
     ignore:
       - dependency-name: '@northern.tech*'
     versioning-strategy: increase
