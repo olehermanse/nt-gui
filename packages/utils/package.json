@@ -37,7 +37,7 @@
     "@northern.tech/eslint-config": "*",
     "@northern.tech/typescript-config": "*",
     "eslint": "^8.57.0",
-    "tsup": "8.3.0"
+    "tsup": "8.3.5"
   },
   "dependencies": {
     "msgpack5": "^6.x",

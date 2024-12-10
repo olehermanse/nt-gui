@@ -45,7 +45,6 @@
     "@mui/icons-material": "^6.x",
     "@mui/material": "^6.x",
     "@northern.tech/common-ui": "*",
-    "@northern.tech/helptips": "*",
     "@northern.tech/store": "*",
     "@northern.tech/utils": "*",
     "dayjs": "^1.x",
