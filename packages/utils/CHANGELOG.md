@@ -1,5 +1,22 @@
 ---
-## @northern.tech/utils-0.2.0 - 2024-12-10
+## @northern.tech/utils-0.4.0 - 2024-12-13
+
+
+### Features
+
+#### Utils
+
+
+- *(utils)* Added dateRangeToUnix function to helpers
+
+ ([651ddb9](https://github.com/NorthernTechHQ/nt-gui/commit/651ddb92080e1ef02e3a7da69b3d8919c1547936))  by @aleksandrychev
+
+
+
+
+
+
+## @northern.tech/utils-0.3.0 - 2024-12-10
 
 
 ### Features
