@@ -1,4 +1,21 @@
 ---
+## @northern.tech/store-0.3.2 - 2024-12-13
+
+
+### Bug Fixes
+
+#### Store
+
+
+- *(store)* Fixed end date filters out today's entries in the Audit log and Devices
+
+ ([aee3e80](https://github.com/NorthernTechHQ/nt-gui/commit/aee3e8053fe5744b99ab7432662c21c3fea38331))  by @aleksandrychev
+
+
+
+
+
+
 ## @northern.tech/store-0.3.1 - 2024-12-10
 
 
