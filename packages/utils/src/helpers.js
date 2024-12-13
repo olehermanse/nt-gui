@@ -11,8 +11,12 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import pluralize from 'pluralize';
 import Cookies from 'universal-cookie';
+
+dayjs.extend(utc);
 
 const isEncoded = uri => {
   uri = uri || '';
@@ -448,4 +452,29 @@ export const preformatWithRequestID = (res, failMsg) => {
     console.log('failed to extract request id:', e);
   }
   return failMsg;
+};
+
+/**
+ * Converts provided start and end dates into a range of UNIX timestamps.
+ * If either date is invalid or null, that value in the returned object will remain null.
+ *
+ * @param {string|Date|number|null} [startDate=null] - The start date of the range.
+ * @param {string|Date|number|null} [endDate=null] - The end date of the range.
+ * @returns {{ start: number|null, end: number|null }} An object containing the start and end times as UNIX timestamps, or null if invalid.
+ *
+ */
+export const dateRangeToUnix = (startDate = null, endDate = null) => {
+  const start = dayjs(startDate);
+  const end = dayjs(endDate);
+  let unixRange = { start: null, end: null };
+
+  if (start.isValid()) {
+    unixRange.start = start.utc().startOf('day').unix();
+  }
+
+  if (end.isValid()) {
+    unixRange.end = end.utc().endOf('day').unix();
+  }
+
+  return unixRange;
 };
