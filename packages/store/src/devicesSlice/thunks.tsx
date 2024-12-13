@@ -52,7 +52,7 @@ import {
   mapTermsToFilters,
   progress
 } from '@northern.tech/store/utils';
-import { attributeDuplicateFilter, deepCompare, extractErrorMessage, getSnackbarMessage } from '@northern.tech/utils/helpers';
+import { attributeDuplicateFilter, dateRangeToUnix, deepCompare, extractErrorMessage, getSnackbarMessage } from '@northern.tech/utils/helpers';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isCancel } from 'axios';
 import pluralize from 'pluralize';
@@ -772,8 +772,9 @@ export const getDeviceConnect = createAsyncThunk(`${sliceName}/getDeviceConnect`
 );
 
 export const getSessionDetails = createAsyncThunk(`${sliceName}/getSessionDetails`, ({ sessionId, deviceId, userId, startDate, endDate }) => {
-  const createdAfter = startDate ? `&created_after=${Math.round(Date.parse(startDate) / 1000)}` : '';
-  const createdBefore = endDate ? `&created_before=${Math.round(Date.parse(endDate) / 1000)}` : '';
+  const { start: startUnix, end: endUnix } = dateRangeToUnix(startDate, endDate);
+  const createdAfter = startDate ? `&created_after=${startUnix}` : '';
+  const createdBefore = endDate ? `&created_before=${endUnix}` : '';
   const objectSearch = `&object_id=${deviceId}`;
   return GeneralApi.get(`${auditLogsApiUrl}/logs?per_page=500${createdAfter}${createdBefore}&actor_id=${userId}${objectSearch}`).then(
     ({ data: auditLogEntries }) => {

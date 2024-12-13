@@ -28,7 +28,7 @@ import {
 import { getCurrentSession, getTenantCapabilities, getTenantsList } from '@northern.tech/store/selectors';
 import { commonErrorFallback, commonErrorHandler } from '@northern.tech/store/store';
 import { setFirstLoginAfterSignup } from '@northern.tech/store/thunks';
-import { deepCompare } from '@northern.tech/utils/helpers';
+import { dateRangeToUnix, deepCompare } from '@northern.tech/utils/helpers';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { jwtDecode } from 'jwt-decode';
 import hashString from 'md5';
@@ -128,8 +128,9 @@ export const completeUpgrade = createAsyncThunk(`${sliceName}/completeUpgrade`, 
 const prepareAuditlogQuery = ({ startDate, endDate, user: userFilter, type, detail: detailFilter, sort = {} }) => {
   const userId = userFilter?.id || userFilter;
   const detail = detailFilter?.id || detailFilter;
-  const createdAfter = startDate ? `&created_after=${Math.round(Date.parse(startDate) / 1000)}` : '';
-  const createdBefore = endDate ? `&created_before=${Math.round(Date.parse(endDate) / 1000)}` : '';
+  const { start: startUnix, end: endUnix } = dateRangeToUnix(startDate, endDate);
+  const createdAfter = startDate ? `&created_after=${startUnix}` : '';
+  const createdBefore = endDate ? `&created_before=${endUnix}` : '';
   const typeSearch = type ? `&object_type=${type.value}`.toLowerCase() : '';
   const userSearch = userId ? `&actor_id=${userId}` : '';
   const objectSearch = type && detail ? `&${type.queryParameter}=${encodeURIComponent(detail)}` : '';
