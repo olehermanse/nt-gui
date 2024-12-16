@@ -1,4 +1,25 @@
 ---
+## @northern.tech/utils-0.4.1 - 2024-12-16
+
+
+### Bug Fixes
+
+#### Utils
+
+
+- *(utils)* Added dayjs to dependencies
+
+ ([28e3b2d](https://github.com/NorthernTechHQ/nt-gui/commit/28e3b2dbfe8ad42bc4b373b1f47ecbb147b6b9b6))  by @aleksandrychev
+
+- *(utils)* Set explicit extension on dayjs utc plugin import
+
+ ([382ceb1](https://github.com/NorthernTechHQ/nt-gui/commit/382ceb1bd9a1bbeff85d9af3aaf77dd1c86798ce))  by @aleksandrychev
+
+
+
+
+
+
 ## @northern.tech/utils-0.4.0 - 2024-12-13
 
 
