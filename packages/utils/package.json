@@ -44,11 +44,11 @@
     "msgpack5": "^6.x",
     "pluralize": "^8.x",
     "react": "^18.x",
-    "react-dom": "^18.x",
+    "react-dom": "^19.x",
     "react-ga4": "^2.x",
     "react-redux": "^9.x",
-    "react-router-dom": "^6.x || ^7.x",
-    "universal-cookie": "7.1.4",
+    "react-router-dom": "^7.x",
+    "universal-cookie": "7.2.2",
     "validator": "^13.x"
   }
 }
